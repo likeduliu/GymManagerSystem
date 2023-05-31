@@ -5,7 +5,8 @@
     <div style="width: 100px;">
       <el-dropdown>
        <span class="el-dropdown-link" style="line-height: 50px; text-align: center; font-size: 14px">
-        <el-icon><el-icon><User /></el-icon></el-icon>用户名
+        <span class="iconfont icon-yonghu"></span>
+         用户名
         <el-icon class="el-icon--right el-icon-arrow-down">
           <arrow-down/>
         </el-icon>
