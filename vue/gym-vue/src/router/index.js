@@ -59,6 +59,11 @@ const routes = [
         ]
     },
     {
+        path: '/All',
+        name: 'all',
+        component: () => import( '../views/CDGL/CdglView.vue')
+    },
+    {
         path: '/Add',
         name: 'add',
         component: () => import( '../views/CDGL/CdglAddView.vue')

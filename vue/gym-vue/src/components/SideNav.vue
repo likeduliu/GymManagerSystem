@@ -28,6 +28,7 @@
           <el-icon><Ticket /></el-icon>
           <span>场地管理</span>
         </template>
+        <el-menu-item index="/All">全部场地</el-menu-item>
         <el-menu-item index="/Add">添加场地</el-menu-item>
         <el-menu-item index="/Del">删除场地</el-menu-item>
         <el-menu-item index="/Book">预约场地</el-menu-item>
