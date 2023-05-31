@@ -55,25 +55,26 @@
 
 
             <el-main>
-                <el-table :data="tableData">
-                    <el-table-column label="添加场地" width="140">
-                    </el-table-column>
-                    <el-table-column prop="name" label="姓名" width="120">
-                    </el-table-column>
-                    <el-table-column prop="address" label="地址">
-                    </el-table-column>
-                </el-table>
-
-                <el-pagination
-                        @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange"
-                        :current-page="currentPage4"
-                        :page-sizes="[100, 200, 300, 400]"
-                        :page-size="10"
-                        layout="sizes, prev, pager, next, jumper"
-                        :total="400">
-                </el-pagination>
-
+                <el-form ref="form" :model="sizeForm" label-width="110px" size="mini">
+                    <el-form-item label="预约者姓名">
+                        <el-input v-model="sizeForm.name" ></el-input>
+                    </el-form-item>
+                    <el-form-item label="预约时间">
+                        <el-col :span="11">
+                        <el-date-picker type="date" placeholder="选择日期" v-model="sizeForm.date1" style="width: 100%;"></el-date-picker>
+                        </el-col>
+                        <el-col class="line" span="1">--</el-col>
+                        <el-col :span="11">
+                        <el-time-picker placeholder="选择时间" v-model="sizeForm.date2" style="width: 100%;"></el-time-picker>
+                        </el-col>
+                    </el-form-item>
+                    
+                    
+                    <el-form-item size="large">
+                        <el-button type="primary" @click="onSubmit">立即预约</el-button>
+                        <el-button>清空</el-button>
+                    </el-form-item>
+                    </el-form>
             </el-main>
 
 
@@ -86,14 +87,26 @@
     import {RouterLink} from 'vue-router';
 
     export default {
-        methods: {
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-            },
-            handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
-            }
-        },
+        data() {
+      return {
+        sizeForm: {
+          name: '',
+          region: '',
+          date1: '',
+          date2: '',
+          delivery: false,
+          type: [],
+          resource: '',
+          desc: ''
+        }
+      };
+    },
+    methods: {
+      onSubmit() {
+        console.log('submit!');
+      }
+    },
+
         components: {RouterLink}
     }
 </script>
