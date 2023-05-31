@@ -13,7 +13,8 @@
     >
       <el-submenu index="1">
         <template #title>
-          <el-icon><User /></el-icon>
+          <span class="iconfont icon-yonghuguanli"></span>
+          &emsp;
           <span>用户管理</span>
         </template>
         <el-menu-item index="/InitUser">普通用户注册</el-menu-item>
@@ -25,7 +26,8 @@
 
       <el-submenu index="2">
         <template #title>
-          <el-icon><Ticket /></el-icon>
+          <span class="iconfont icon-changdi"></span>
+          &emsp;
           <span>场地管理</span>
         </template>
         <el-menu-item index="/All">全部场地</el-menu-item>
@@ -43,7 +45,8 @@
 
       <el-submenu index="3">
         <template #title>
-          <el-icon><Calendar /></el-icon>
+          <span class="iconfont icon-saishi"></span>
+          &emsp;
           <span>赛事管理</span>
         </template>
         <el-menu-item index="/">功能</el-menu-item>
@@ -51,8 +54,9 @@
 
       <el-submenu index="4">
         <template #title>
-          <el-icon><Calendar /></el-icon>
-          <span>赛事管理</span>
+          <span class="iconfont icon-icon_changdiguanli"></span>
+          &emsp;
+          <span>器材管理</span>
         </template>
         <el-menu-item index="/">功能</el-menu-item>
       </el-submenu>

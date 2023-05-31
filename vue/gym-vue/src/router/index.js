@@ -7,14 +7,21 @@ Vue.use(VueRouter)
 const routes = [
     {
         // 登陆页面
-        path:'login',
+        path:'/login',
         name:'Login',
         component:()=>import('../views/LoginPage.vue'),
+    },
+    {
+        // 欢迎页面
+        path:'/index',
+        name:'index',
+        component:()=>import('../views/WelcomePage.vue'),
     },
     {
         // 主页面
         path: '/',
         name: 'home',
+        redirect:'/index',
         component: ()=>import('../views/HomeView.vue'),
         // 菜单
         children:[

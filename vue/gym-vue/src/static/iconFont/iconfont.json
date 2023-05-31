@@ -1,0 +1,44 @@
+{
+  "id": "4097389",
+  "name": "icon_ali",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "6263286",
+      "name": "用户管理",
+      "font_class": "yonghuguanli",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "15726755",
+      "name": "场地",
+      "font_class": "changdi",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "21034451",
+      "name": "用户",
+      "font_class": "yonghu",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "26047328",
+      "name": "赛事",
+      "font_class": "saishi",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "31953518",
+      "name": "icon_场地管理",
+      "font_class": "icon_changdiguanli",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    }
+  ]
+}
