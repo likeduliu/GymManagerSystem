@@ -1,9 +1,15 @@
 <template>
     <el-container style="height: 560px; border: 1px solid #eee">
         <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-            <el-menu :default-openeds="['1']">
+            <el-menu :default-openeds="['2']">
+                
                 <el-submenu index="1">
-                    <template slot="title">场地管理功能列表</template>
+                    <template slot="title">用户管理</template>
+                </el-submenu>
+
+
+                <el-submenu index="2">
+                    <template slot="title">场地管理</template>
                     <el-menu-item index="1-1">
                         <RouterLink to="/Add"> 添加场地</RouterLink>
                     </el-menu-item>
@@ -34,7 +40,13 @@
                     <el-menu-item index="1-10">
                         <RouterLink to="/Notice"> 场地公告管理</RouterLink>
                     </el-menu-item>
-
+                </el-submenu>
+                
+                <el-submenu index="3">
+                    <template slot="title">赛事管理</template>
+                </el-submenu>
+                <el-submenu index="4">
+                    <template slot="title">器材管理</template>
                 </el-submenu>
             </el-menu>
         </el-aside>
@@ -54,15 +66,19 @@
 
 
             <el-main>
-                <el-table :data="fields">
-                    <el-table-column label="添加场地" width="140" v-for="field in fields" v-bind:key="field.fieldid">
-                        {{ field.fieldid }}
+                <el-table :data="fields" >
+                    <el-table-column prop="fieldName" label="场地名称" width="120">
                     </el-table-column>
-                    <el-table-column prop="name" label="姓名" width="120" v-for="field in fields"
-                                     v-bind:key="field.fieldid">
-                        {{ field.fieldName }}
+                    <el-table-column prop="fieldid" label="场地编号" width="140">                       
                     </el-table-column>
-                    <el-table-column prop="address" label="地址">
+                    <el-table-column prop="fieldName" label="场地名称" width="120">
+                    </el-table-column>
+                    <el-table-column  prop="book" label="预约状态" width="120">
+                        <template slot-scope="scope">{{scope.row.book == 1 ? "已预约" : "可预约"}}</template>
+                    </el-table-column>
+                    <el-table-column prop="kind" label="类型" width="120" >
+                    </el-table-column>
+                    <el-table-column prop="rate" label="收费标准" >
                     </el-table-column>
 
                 </el-table>
