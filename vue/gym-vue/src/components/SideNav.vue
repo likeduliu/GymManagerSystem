@@ -28,9 +28,16 @@
           <el-icon><Ticket /></el-icon>
           <span>场地管理</span>
         </template>
-        <el-menu-item index="/Add">功能</el-menu-item>
-        <el-menu-item index="/Add">功能</el-menu-item>
-        <el-menu-item index="/Add">功能</el-menu-item>
+        <el-menu-item index="/Add">添加场地</el-menu-item>
+        <el-menu-item index="/Del">删除场地</el-menu-item>
+        <el-menu-item index="/Book">预约场地</el-menu-item>
+        <el-menu-item index="/CancleBook">取消预约</el-menu-item>
+        <el-menu-item index="/UpdateBook">场地预约修改</el-menu-item>
+        <el-menu-item index="/QueryWeek">场地一周信息查询</el-menu-item>
+        <el-menu-item index="/Use">使用场地</el-menu-item>
+        <el-menu-item index="/Reserve">校队预留场地</el-menu-item>
+        <el-menu-item index="/Rate">场地收费标准查询</el-menu-item>
+        <el-menu-item index="/Notice">场地公告管理</el-menu-item>
       </el-submenu>
 
       <el-submenu index="3">
