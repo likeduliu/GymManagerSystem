@@ -6,9 +6,57 @@ Vue.use(VueRouter)
 
 const routes = [
     {
+        // 登陆页面
+        path:'login',
+        name:'Login',
+        component:()=>import('../views/LoginPage.vue'),
+    },
+    {
+        // 主页面
         path: '/',
         name: 'home',
-        component: () => import( '../views/CDGL/CdglView.vue')
+        component: ()=>import('../views/HomeView.vue'),
+        // 菜单
+        children:[
+            {
+                path:'/InitUser',
+                name:'InitUser',
+                component:()=>import('../views/YHGL/InitUser.vue')
+            },
+            {
+                path:'/ManagerRole',
+                name:'ManagerRole',
+                component:()=>import('../views/YHGL/ManagerRole.vue')
+            },
+            {
+                path:'/ChangePw',
+                name:'ChangePw',
+                component:()=>import('../views/YHGL/ChangePw.vue')
+            },
+            {
+                path:'/SearchUser',
+                name:'SearchUser',
+                component:()=>import('../views/YHGL/SearchUser.vue')
+            },
+            {
+                path:'/DeleteUser',
+                name:'DeleteUser',
+                component:()=>import('../views/YHGL/DeleteUser.vue')
+            },
+
+        ]
+    },
+    {
+        path:'/home',
+        name:'home',
+        component:() => import('../views/HomeView.vue'),
+        children:[
+            {
+                path:'/InitUser',
+                name:'InitUser',
+                component:()=>import('../views/YHGL/InitUser.vue'),
+            },
+        ]
     },
     {
         path: '/Add',
@@ -58,6 +106,11 @@ const routes = [
     {
         path: '/Use',
         name: 'use',
+        component: () => import( '../views/CDGL/CdglUseView.vue')
+    },
+    {
+        path: '/InitUser',
+        name: 'InitUser',
         component: () => import( '../views/CDGL/CdglUseView.vue')
     }
 
