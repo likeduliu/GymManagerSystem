@@ -13,7 +13,9 @@
     >
       <el-submenu index="1">
         <template #title>
+          <i class="el-icon-message"></i>
           <el-icon><User /></el-icon>
+          <span class="iconfont .icon-yonghuguanli"></span>
           <span>用户管理</span>
         </template>
         <el-menu-item index="/InitUser">普通用户注册</el-menu-item>
@@ -29,8 +31,8 @@
           <span>场地管理</span>
         </template>
         <el-menu-item index="/Add">功能</el-menu-item>
-        <el-menu-item index="/Add">功能</el-menu-item>
-        <el-menu-item index="/Add">功能</el-menu-item>
+        <el-menu-item index="/Book">功能</el-menu-item>
+
       </el-submenu>
 
       <el-submenu index="3">
@@ -53,10 +55,12 @@
   </div>
 </template>
 
+<link rel="stylesheet" href="./iconfont.css">
 <style>
 .el-menu-vertical-demo{
   width: 250px;
 }
+
 
 </style>
 
