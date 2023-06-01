@@ -13,9 +13,9 @@
         </span>
          <template #dropdown>
             <el-dropdown-menu>
-             <el-dropdown-item>Action 1</el-dropdown-item>
-             <el-dropdown-item>Action 2</el-dropdown-item>
-             <el-dropdown-item>Action 3</el-dropdown-item>
+             <el-dropdown-item>个人信息</el-dropdown-item>
+             <el-dropdown-item>更换账号</el-dropdown-item>
+             <el-dropdown-item>退出</el-dropdown-item>
             </el-dropdown-menu>
          </template>
       </el-dropdown>

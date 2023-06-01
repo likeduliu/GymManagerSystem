@@ -4,24 +4,38 @@
         <el-container>
 
             <el-main>
-                <el-table :data="tableData">
-                    <el-table-column label="添加场地" width="140">
-                    </el-table-column>
-                    <el-table-column prop="name" label="姓名" width="120">
-                    </el-table-column>
-                    <el-table-column prop="address" label="地址">
-                    </el-table-column>
-                </el-table>
+                    
+                        <el-form :inline="true" class="demo-form-inline">
+                            <el-form-item label="场地名称">
+                            <el-input  placeholder="场地名称"></el-input>
+                            </el-form-item>
+                            <el-form-item label="场地种类">
+                            <el-select  placeholder="场地种类">
+                            <el-option label="篮球场" value="1"></el-option>
+                            <el-option label="羽毛球场" value="2"></el-option>
+                            </el-select>
+                            </el-form-item>
+                            <el-form-item>
+                            <el-button type="primary" @click="onSubmit">添加</el-button>
+                            </el-form-item>
+                        </el-form>
+                    
+                    <el-table :data="fields" >
+                        <el-table-column prop="fieldName" label="场地名称" width="120">
+                        </el-table-column>
+                        <el-table-column prop="fieldid" label="场地编号" width="140">                       
+                        </el-table-column>
+                        <el-table-column prop="fieldName" label="场地名称" width="120">
+                        </el-table-column>
+                        <el-table-column  prop="book" label="预约状态" width="120">
+                            <template slot-scope="scope">{{scope.row.book == 1 ? "已预约" : "可预约"}}</template>
+                        </el-table-column>
+                        <el-table-column prop="kind" label="类型" width="120" >
+                        </el-table-column>
+                        <el-table-column prop="rate" label="收费标准" >
+                        </el-table-column>
 
-                <el-pagination
-                        @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange"
-                        :current-page="currentPage4"
-                        :page-sizes="[100, 200, 300, 400]"
-                        :page-size="10"
-                        layout="sizes, prev, pager, next, jumper"
-                        :total="400">
-                </el-pagination>
+                    </el-table>
 
             </el-main>
 
@@ -32,19 +46,23 @@
 
 
 <script>
-    
+   import axios from 'axios';
 
-    export default {
-        methods: {
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-            },
-            handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+   export default {
+        name: "cdglField",
+        data() {
+            return {
+                fields: []
             }
         },
-      
-    }
+        created() {
+            var that = this
+            axios.get("http://localhost:8080").then(function (resp) {
+                    that.fields = resp.data
+                }
+            )
+        }
+  }
 </script>
 <style>
     .el-header {
