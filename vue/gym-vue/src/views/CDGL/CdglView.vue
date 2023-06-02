@@ -38,7 +38,7 @@
         },
         created() {
             var that = this
-            axios.get("http://localhost:8080").then(function (resp) {
+            axios.get("http://localhost:8080/field/").then(function (resp) {
                     that.fields = resp.data
                 }
             )

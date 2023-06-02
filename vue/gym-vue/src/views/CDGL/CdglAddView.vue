@@ -5,16 +5,18 @@
 
             <el-main>
                     
-                        <el-form :inline="true" class="demo-form-inline">
+                        <el-form :inline="true" model="newfield" class="demo-form-inline">
                             <el-form-item label="场地名称">
-                            <el-input  placeholder="场地名称"></el-input>
+                            <el-input  v-model="newfield.fieldName" placeholder="场地名称"></el-input>
                             </el-form-item>
+
                             <el-form-item label="场地种类">
-                            <el-select  placeholder="场地种类">
-                            <el-option label="篮球场" value="1"></el-option>
-                            <el-option label="羽毛球场" value="2"></el-option>
+                            <el-select  v-model="newfield.kind" placeholder="场地种类">
+                            <el-option label="篮球场" value="篮球场"></el-option>
+                            <el-option label="羽毛球场" value="羽毛球场"></el-option>
                             </el-select>
                             </el-form-item>
+
                             <el-form-item>
                             <el-button type="primary" @click="onSubmit">添加</el-button>
                             </el-form-item>
@@ -52,16 +54,33 @@
         name: "cdglField",
         data() {
             return {
-                fields: []
+                fields: [],
+                newfield:{
+                    fieldName:'',
+                    kind:''
+
+                }
             }
+        },
+
+
+        methods:{
+            onSubmit(){
+                const field={
+                    fieldName:this.fieldName,
+                    kind:this.kind,
+                }
+                axios.post("http://localhost:8080/field/Add",this.newfield)
+            }
+            
         },
         created() {
             var that = this
-            axios.get("http://localhost:8080").then(function (resp) {
+            axios.get("http://localhost:8080/field/").then(function (resp) {
                     that.fields = resp.data
                 }
             )
-        }
+        },
   }
 </script>
 <style>

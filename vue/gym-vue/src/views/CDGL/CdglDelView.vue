@@ -9,7 +9,7 @@
                             </el-table-column>
                             <el-table-column prop="fieldName" label="场地" >
                             </el-table-column>
-                            <el-table-column>
+                            <el-table-column v-slot="scope">
                                 <el-form size="mini">
                                     <el-form-item style="margin: 0;">
                                         <el-button class="del" @click="del(scope.row.fieldid)" size="mini" >删除</el-button>
@@ -35,21 +35,26 @@
         data() {
             return {
                 fields: []
+                
             }
         },
-        data2(){
-            return{
-                del_id:"",
-            }
-        },
+      
+        methods:{
         del(fieldid){
-            if(this.$delete){
-                this.del_id=fieldid
-            }
-        },
+           
+            axios.delete("http://localhost:8080/field/Del/"+fieldid)
+            .then(response => {
+            console.log(response.data);
+                })
+            .catch(error => {
+          
+            console.error(error);
+                });
+            
+        }},
         created() {
             var that = this
-            axios.get("http://localhost:8080").then(function (resp) {
+            axios.get("http://localhost:8080/field/").then(function (resp) {
                     that.fields = resp.data
                 }
             )

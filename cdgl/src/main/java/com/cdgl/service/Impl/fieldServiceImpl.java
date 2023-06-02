@@ -1,8 +1,5 @@
 package com.cdgl.service.Impl;
 
-public class fieldServerImpl {
-
-
-
+public class fieldServiceImpl {
 
 }
