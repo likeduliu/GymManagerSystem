@@ -3,13 +3,12 @@
 
         <el-container>
 
-            <el-main>
-                    
+            <el-main>                
                         <el-form :inline="true" model="newfield" class="demo-form-inline">
                             <el-form-item label="场地名称">
                             <el-input  v-model="newfield.fieldName" placeholder="场地名称"></el-input>
+                            <el-input  v-model="newfield.book" v-show="false" value="2"></el-input>
                             </el-form-item>
-
                             <el-form-item label="场地种类">
                             <el-select  v-model="newfield.kind" placeholder="场地种类">
                             <el-option label="篮球场" value="篮球场"></el-option>
@@ -26,9 +25,7 @@
                         <el-table-column prop="fieldName" label="场地名称" width="120">
                         </el-table-column>
                         <el-table-column prop="fieldid" label="场地编号" width="140">                       
-                        </el-table-column>
-                        <el-table-column prop="fieldName" label="场地名称" width="120">
-                        </el-table-column>
+                        </el-table-column>                        
                         <el-table-column  prop="book" label="预约状态" width="120">
                             <template slot-scope="scope">{{scope.row.book == 1 ? "已预约" : "可预约"}}</template>
                         </el-table-column>
@@ -50,6 +47,7 @@
 <script>
    import axios from 'axios';
 
+
    export default {
         name: "cdglField",
         data() {
@@ -57,8 +55,9 @@
                 fields: [],
                 newfield:{
                     fieldName:'',
-                    kind:''
-
+                    kind:'',
+                    book:'2'
+                    
                 }
             }
         },
@@ -69,8 +68,16 @@
                 const field={
                     fieldName:this.fieldName,
                     kind:this.kind,
+                    book:this.book,
                 }
                 axios.post("http://localhost:8080/field/Add",this.newfield)
+                .then(response => { //更新数据
+                    this.updatedate()
+                })
+                .catch(error => {
+          
+                console.error(error);
+                });                     
             }
             
         },
@@ -81,6 +88,13 @@
                 }
             )
         },
+        updated(){
+            var that = this
+            axios.get("http://localhost:8080/field/").then(function (resp) {
+                    that.fields = resp.data
+                }
+            )
+        }
   }
 </script>
 <style>

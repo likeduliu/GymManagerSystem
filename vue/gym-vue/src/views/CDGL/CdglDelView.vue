@@ -44,15 +44,22 @@
            
             axios.delete("http://localhost:8080/field/Del/"+fieldid)
             .then(response => {
-            console.log(response.data);
+                    this.updatedate()
                 })
-            .catch(error => {
+                .catch(error => {
           
-            console.error(error);
+                console.error(error);
                 });
             
         }},
         created() {
+            var that = this
+            axios.get("http://localhost:8080/field/").then(function (resp) {
+                    that.fields = resp.data
+                }
+            )
+        },
+        updated(){
             var that = this
             axios.get("http://localhost:8080/field/").then(function (resp) {
                     that.fields = resp.data
