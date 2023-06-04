@@ -13,7 +13,7 @@
                     </el-table-column>
                     <el-table-column prop="kind" label="类型" width="120" >
                     </el-table-column>
-                    <el-table-column prop="rate" label="收费标准" >
+                    <el-table-column prop="rate" label="收费标准 ：元/小时" >
                     </el-table-column>
                 </el-table>
             </el-main>

@@ -1,6 +1,7 @@
 package com.cdgl.service;
 
 import com.cdgl.pojo.field;
+import com.cdgl.pojo.fieldnotice;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -18,6 +19,21 @@ public interface fieldService {
     List<field> unbook();
     @Select("Select *from field where book='1'")
     List<field> booked();
+
+    @Select("Select * from fieldnotice")
+    List<fieldnotice> findAllNotice();
+
+    @Select("Select *from fieldnotice where fieldnoticeid=#{fieldnoticeid}")
+    fieldnotice fefieldnotice(Integer fieldnoticeid);
+
+    @Update("UPDATE fieldnotice SET fieldnoticetitle=#{fieldnoticetitle},fieldnoticebody={fieldnoticebody} WHERE fieldnoticeid=#{fieldnoticeid}")
+    public void updateFieldNotice(fieldnotice fieldnotice);
+
+    @Delete("Delete from fieldnotice where fieldnoticeid=#{fieldnoticeid} ")
+    public void deleteFieldNotice(Integer fieldnoticeid);
+
+    @Insert("INSERT INTO `fieldnotice` (`fieldNoticeTitle`, `fieldNoticeBody`) VALUES (#{fieldnoticetitle}, #{fieldnoticebody});")
+    public void addFieldNotice(fieldnotice fieldnotice);
 
     @Delete("Delete * from field where fieldid=#{fieldid}")
     String DelField();
