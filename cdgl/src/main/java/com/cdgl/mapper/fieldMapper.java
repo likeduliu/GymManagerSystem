@@ -1,6 +1,7 @@
 package com.cdgl.mapper;
 
 import com.cdgl.pojo.field;
+import com.cdgl.pojo.fieldnotice;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public interface fieldMapper {
     @Update("ALTER TABLE field AUTO_INCREMENT = #{fieldid}")
     public void UpdateFieldId(Integer fieldid);
     //添加场地
-    @Insert("INSERT INTO `field` (`fieldName`, `kind`,`book`) VALUES (#{fieldName}, #{kind}, #{book});")
+    @Insert("INSERT INTO `field` (`fieldName`, `kind`,`book`,`rate`) VALUES (#{fieldName}, #{kind}, #{book},#{rate});")
     public void AddField(field field);
     //预约场地
     @Update("UPDATE field SET book = 1,bookusername=#{bookusername},bookstarttime=#{bookstarttime},bookendtime=#{bookendtime} WHERE fieldid = #{fieldid};")

@@ -1,7 +1,9 @@
 package com.cdgl.controller;
 
 import com.cdgl.mapper.fieldMapper;
+import com.cdgl.mapper.fieldNoticeMapper;
 import com.cdgl.pojo.field;
+import com.cdgl.pojo.fieldnotice;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,8 @@ public class TestController {
 
     @Autowired
     private fieldMapper fieldMapper;
+    @Autowired
+    private fieldNoticeMapper fieldNoticeMapper;
 
 
     //查询全部场地
@@ -21,12 +25,12 @@ public class TestController {
     public List<field> index(){
         List<field> all=fieldMapper.findAll();
         return all;
-
     }
     //查询已经预约的场地
     @RequestMapping("/unBook")
     public List<field> unbook(){
         List<field> unbookfield =fieldMapper.unbook();
+        
         return unbookfield;
     }
     //查询未预约的场地
@@ -35,6 +39,35 @@ public class TestController {
         List<field> bookedfield =fieldMapper.booked();
         return bookedfield;
     }
+    //查询公告
+    @RequestMapping("/Notice")
+    public List<fieldnotice> fieldnotice(){
+        List<fieldnotice> allnotice=fieldNoticeMapper.findAllNotice();
+        return  allnotice;
+    }
+    //编辑公告中的查询
+    @RequestMapping("/NoticeEdit/{fieldnoticeid}")
+    public fieldnotice fefieldnotice(@PathVariable Integer fieldnoticeid){
+        fieldnotice fefieldnotice=fieldNoticeMapper.fefieldnotice(fieldnoticeid);
+        return fefieldnotice;
+    }
+    @RequestMapping("/UpdateFieldNotice")
+    public void updateFieldNotice(@RequestBody fieldnotice fieldnotice){
+            fieldNoticeMapper.updateFieldNotice(fieldnotice);
+    }
+    @RequestMapping("/NoticeDelete/{fieldnoticeid}")
+    public void deleteFieldNotice(@PathVariable Integer fieldnoticeid){
+        fieldNoticeMapper.deleteFieldNotice(fieldnoticeid);
+    }
+    @RequestMapping("/AddFieldNotice")
+    public void addnotice(@RequestBody fieldnotice fieldnotice){
+        fieldNoticeMapper.addFieldNotice(fieldnotice);
+    }
+
+
+
+
+
     //删除场地
         @DeleteMapping("/Del/{fieldid}")
         public void del(@PathVariable Integer fieldid){
@@ -59,6 +92,7 @@ public class TestController {
     public void cancleBook(@PathVariable Integer fieldid){
         fieldMapper.CancleBook(fieldid);
     }
+
 
 
 }

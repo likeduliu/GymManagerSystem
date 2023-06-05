@@ -9,7 +9,15 @@
                             <el-input  v-model="newfield.fieldName" placeholder="场地名称"></el-input>
                             <el-input  v-model="newfield.book" v-show="false" value="2"></el-input>
                             </el-form-item>
-                            
+                            <el-form-item label="收费标准">
+                                <el-select  v-model="newfield.rate" placeholder="收费标准">
+                                <el-option label="10元/小时" value="10"></el-option>
+                                <el-option label="20元/小时" value="20"></el-option>
+                                <el-option label="30元/小时" value="30"></el-option>
+                                <el-option label="40元/小时" value="40"></el-option>
+                                <el-option label="50元/小时" value="50"></el-option>
+                                </el-select>
+                            </el-form-item>
                             <el-form-item label="场地种类">
                             <el-select  v-model="newfield.kind" placeholder="场地种类">
                             <el-option label="篮球场" value="篮球场"></el-option>
@@ -32,7 +40,7 @@
                         </el-table-column>
                         <el-table-column prop="kind" label="类型" width="120" >
                         </el-table-column>
-                        <el-table-column prop="rate" label="收费标准" >
+                        <el-table-column prop="rate" label="收费标准 ：元/小时" >
                         </el-table-column>
 
                     </el-table>
@@ -57,8 +65,8 @@
                 newfield:{
                     fieldName:'',
                     kind:'',
-                    book:'2'
-                    
+                    book:'2',
+                    rate:'',
                 }
             }
         },
@@ -98,28 +106,3 @@
         }
   }
 </script>
-<style>
-    .el-header {
-        background-color: #B3C0D1;
-        color: #333;
-        line-height: 60px;
-    }
-
-    .el-aside {
-        color: #333;
-    }
-
-    .fl {
-        float: left;
-    }
-
-    a {
-        text-decoration: none;
-        color: black;
-    }
-
-    .router-link-active {
-        text-decoration: none;
-        color: black;
-    }
-</style>

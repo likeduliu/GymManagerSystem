@@ -7,7 +7,7 @@
                         <el-table :data="fields" stripe style="width: 100%">
                             <el-table-column prop="fieldid" label="编号" width="180">
                             </el-table-column>
-                            <el-table-column prop="fieldName" label="场地" >
+                            <el-table-column prop="fieldName" label="场地" width="400" >
                             </el-table-column>
                             <el-table-column v-slot="scope">
                                 <el-form size="mini">
@@ -69,28 +69,3 @@
         
     }
 </script>
-<style>
-    .el-header {
-        background-color: #B3C0D1;
-        color: #333;
-        line-height: 60px;
-    }
-
-    .el-aside {
-        color: #333;
-    }
-
-    .fl {
-        float: left;
-    }
-
-    a {
-        text-decoration: none;
-        color: black;
-    }
-
-    .router-link-active {
-        text-decoration: none;
-        color: black;
-    }
-</style>
