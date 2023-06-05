@@ -73,7 +73,6 @@ public class TestController {
         public void del(@PathVariable Integer fieldid){
             fieldMapper.DelField(fieldid);
             fieldMapper.UpdateFieldId(fieldid);
-
     }
     //添加场地
     @PostMapping("/Add")
