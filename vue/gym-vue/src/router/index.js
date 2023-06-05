@@ -21,7 +21,7 @@ const routes = [
         // 主页面
         path: '/',
         name: 'home',
-        redirect:'/index',
+        redirect:'/login',
         component: ()=>import('../views/HomeView.vue'),
         // 菜单
         children:[
@@ -53,18 +53,18 @@ const routes = [
 
         ]
     },
-    {
-        path:'/home',
-        name:'home',
-        component:() => import('../views/HomeView.vue'),
-        children:[
-            {
-                path:'/InitUser',
-                name:'InitUser',
-                component:()=>import('../views/YHGL/InitUser.vue'),
-            },
-        ]
-    },
+    // {
+    //     path:'/home',
+    //     name:'home',
+    //     component:() => import('../views/HomeView.vue'),
+    //     children:[
+    //         {
+    //             path:'/InitUser',
+    //             name:'InitUser',
+    //             component:()=>import('../views/YHGL/InitUser.vue'),
+    //         },
+    //     ]
+    // },
     {
         path: '/All',
         name: 'all',
