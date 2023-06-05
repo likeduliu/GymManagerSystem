@@ -1,10 +1,21 @@
 <script>
 
+import {transitionProps as form} from "vue/src/platforms/web/runtime/components/transition";
+import {defineComponent} from "vue";
+
+export default defineComponent({
+  computed: {
+    form() {
+      return form
+    }
+  }
+})
+
 </script>
 
 <template>
   <div>
-    <el-form ref="form" :model="form" label-width="200px">
+    <el-form ref="form" model="form" id="searchform" label-width="200px">
       <el-form-item label="学号/教职工号" style="margin-top: 50px">
         <el-input v-model="form.userid"></el-input>
       </el-form-item>
@@ -28,7 +39,7 @@
 
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
-        <el-button>取消</el-button>
+        <el-button type="primary" @click="resetform">重置</el-button>
       </el-form-item>
     </el-form>
 
@@ -73,14 +84,14 @@
           prop="role">
       </el-table-column>
       <el-table-column label="操作">
-        <template slot-scope="scope">
+        <template>
           <el-button
               size="mini"
-              @click="handleEdit(scope.$index, scope.row)">管理角色</el-button>
+              @click="handleEdit()">管理角色</el-button>
           <el-button
               size="mini"
               type="danger"
-              @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+              @click="handleDelete()">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -147,6 +158,15 @@ export default {
   methods: {
     onSubmit() {
       console.log('submit!');
+    },
+    resetform(){
+      document.getElementById("searchform").reset();
+    },
+    handleEdit(){
+      this.$router.push("ManagerRole");
+    },
+    handleDelete(){
+      this.$router.push("/DeleteUser");
     }
   }
 }

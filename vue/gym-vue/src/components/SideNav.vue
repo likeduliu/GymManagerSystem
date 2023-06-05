@@ -18,10 +18,10 @@
           <span>用户管理</span>
         </template>
         <el-menu-item index="/InitUser">普通用户注册</el-menu-item>
-        <el-menu-item index="/ManagerRole">用户角色管理</el-menu-item>
+<!--        <el-menu-item index="/ManagerRole">用户角色管理</el-menu-item>-->
         <el-menu-item index="ChangePw">修改密码</el-menu-item>
         <el-menu-item index="SearchUser">查询用户</el-menu-item>
-        <el-menu-item index="DeleteUser">删除用户</el-menu-item>
+<!--        <el-menu-item index="DeleteUser">删除用户</el-menu-item>-->
       </el-submenu>
 
       <el-submenu index="2">

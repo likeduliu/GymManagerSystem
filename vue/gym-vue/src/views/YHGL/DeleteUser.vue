@@ -31,7 +31,7 @@
 
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确认删除</el-button>
-        <el-button>取消</el-button>
+        <el-button type="primary" @click="backwards">取消</el-button>
       </el-form-item>
 
     </el-form>
@@ -70,6 +70,9 @@ export default {
   methods: {
     onSubmit() {
       console.log('submit!');
+    },
+    backwards(){
+      this.$router.push("SearchUser");
     }
   }
 }

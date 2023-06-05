@@ -23,7 +23,7 @@
 
       <el-form-item>
         <el-button type="primary" @click="onSubmit">确认修改</el-button>
-        <el-button>取消</el-button>
+        <el-button type="primary" @click="resetform">重置</el-button>
       </el-form-item>
 
     </el-form>
@@ -62,6 +62,9 @@ export default {
   methods: {
     onSubmit() {
       console.log('submit!');
+    },
+    resetform(){
+      document.getElementById("userform").reset()
     }
   }
 }
