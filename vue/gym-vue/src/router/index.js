@@ -124,7 +124,26 @@ const routes = [
         path: '/InitUser',
         name: 'InitUser',
         component: () => import( '../views/CDGL/CdglUseView.vue')
-    }
+    } ,
+    {
+        path: '/equipment/All',
+        name: 'all',
+        component: () => import( '../views/QCGL/QCGLQueryView.vue')
+    },
+    {
+        path: '/equipment/Add',
+        name: 'add',
+        component: () => import( '../views/QCGL/QCGLAddView.vue')
+    },
+    {
+        path: '/equipment/Del',
+        name: 'del',
+        component: () => import( '../views/QCGL/QCGLDelView.vue')
+    },
+
+
+
+
 
 ]
 

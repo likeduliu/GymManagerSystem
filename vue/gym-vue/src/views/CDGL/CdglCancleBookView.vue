@@ -51,25 +51,23 @@
     },
     methods:{
         canclebook(fieldid){
-            axios.post("http://localhost:8080/field/CancleBook"+fieldid)
+            axios.post("http://localhost:8080/field/CancleBook/"+fieldid)
             .then(response => {
                     this.update()
                 })
                 .catch(error => {
-          
                 console.error(error);
                 });
-        }
-
-
-    },
-    update(){
+        },
+        update(){
             var that = this
             axios.get("http://localhost:8080/field/Booked").then(function (resp) {
                     that.fields = resp.data
                 }
             )
         },
+    },
+    
     created() {
             var that = this
             axios.get("http://localhost:8080/field/Booked").then(function (resp) {
