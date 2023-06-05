@@ -9,6 +9,7 @@
                             <el-input  v-model="newfield.fieldName" placeholder="场地名称"></el-input>
                             <el-input  v-model="newfield.book" v-show="false" value="2"></el-input>
                             </el-form-item>
+                            
                             <el-form-item label="场地种类">
                             <el-select  v-model="newfield.kind" placeholder="场地种类">
                             <el-option label="篮球场" value="篮球场"></el-option>
