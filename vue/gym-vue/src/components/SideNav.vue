@@ -37,7 +37,7 @@
         <el-menu-item index="/field/CancleBook">取消预约</el-menu-item>
         <el-menu-item index="/field/UpdateBook">场地预约修改</el-menu-item>
         <!-- <el-menu-item index="/field/QueryWeek">场地一周信息查询</el-menu-item> -->
-        <el-menu-item index="/field/Use">使用场地</el-menu-item>
+        <el-menu-item index="/field/Use">场地费用结算</el-menu-item>
         <!-- <el-menu-item index="/field/Reserve">校队预留场地</el-menu-item> -->
         <!-- <el-menu-item index="/field/Rate">场地收费标准查询</el-menu-item> -->
         <el-menu-item index="/field/Notice">场地公告管理</el-menu-item>
