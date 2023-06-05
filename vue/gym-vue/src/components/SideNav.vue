@@ -58,7 +58,14 @@
           &emsp;
           <span>器材管理</span>
         </template>
-        <el-menu-item index="/">功能</el-menu-item>
+       <el-menu-item index="/equipment/All">全部器材</el-menu-item>
+        <el-menu-item index="/equipment/Add">添加器材</el-menu-item>
+        <el-menu-item index="/equipment/Del">删除器材</el-menu-item>
+        <el-menu-item index="/equipment/Book">租用器材</el-menu-item>
+        <el-menu-item index="/equipment/CancleBook">器材维护</el-menu-item>
+        <el-menu-item index="/equipment/UpdateBook">回收器材</el-menu-item>
+        <el-menu-item index="/equipment/QueryWeek">器材收费查询</el-menu-item>
+        
       </el-submenu>
     </el-menu>
 
