@@ -87,7 +87,6 @@
                     this.updatedate()
                 })
                 .catch(error => {
-          
                 console.error(error);
                 });                     
             },
