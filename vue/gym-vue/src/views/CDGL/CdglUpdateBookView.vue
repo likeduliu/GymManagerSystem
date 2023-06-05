@@ -4,13 +4,22 @@
         <el-container>
         
             <el-main>
-                <el-table :data="tableData">
-                    <el-table-column label="添加场地" width="140">
+                <el-table :data="fields">
+                    <el-table-column prop="fieldName" label="场地名称" width="140">
                     </el-table-column>
-                    <el-table-column prop="name" label="姓名" width="120">
+                    <el-table-column prop="bookusername" label="预约者" width="120">
                     </el-table-column>
-                    <el-table-column prop="address" label="地址">
+                    <el-table-column  label="预约开始时间">
+                        <template slot-scope="scope">
+                                <div>{{ fields[scope.row.fieldid].bookstarttime | formatDate }}</div>
+                        </template>
                     </el-table-column>
+                    <el-table-column prop="bookendtime" label="预约结束时间">
+                        <template slot-scope="scope">
+                                <div>{{ fields[scope.row.fieldid].bookendtime | formatDate }}</div>
+                        </template>
+                    </el-table-column>
+
                 </el-table>
 
 
@@ -24,40 +33,51 @@
 
 <script>
 
+    import axios from 'axios';
     export default {
-        methods: {
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-            },
-            handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
-            }
+        data() {
+      return {
+          bookform:{
+          bookstarttime:'',
+          bookendtime:'',
+          bookusername:'',
+          fieldid:'',
+          fieldName:'',
+          kind:'',
+          rate:'',
+          book:''
         },
+        fields: [],
+        
+        
+      };
+    },
+        methods: {
+          
+             
+           
+        },
+        created() {
+            var self = this
+            const dateString=''
+            axios.get("http://localhost:8080/field/Booked").then(function (resp) {
+                    self.fields = resp.data;
+                                        
+                    
+                },
+               
+            )
+        },
+
+        filters: {
+              formatDate(value) {
+                const dateObject = new Date(value);
+                const year = dateObject.getFullYear();
+                const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+                const day = dateObject.getDate().toString().padStart(2, '0');
+                return `${year}-${month}-${day}`;
+              }
+            },
 
     }
 </script>
-<style>
-    .el-header {
-        background-color: #B3C0D1;
-        color: #333;
-        line-height: 60px;
-    }
-
-    .el-aside {
-        color: #333;
-    }
-
-    .fl {
-        float: left;
-    }
-
-    a {
-        text-decoration: none;
-        color: black;
-    }
-
-    .router-link-active {
-        text-decoration: none;
-        color: black;
-    }
-</style>

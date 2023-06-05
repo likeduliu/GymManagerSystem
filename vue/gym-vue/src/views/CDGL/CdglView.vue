@@ -8,16 +8,13 @@
                     </el-table-column>
                     <el-table-column prop="fieldid" label="场地编号" width="140">                       
                     </el-table-column>
-                    <el-table-column prop="fieldName" label="场地名称" width="120">
-                    </el-table-column>
                     <el-table-column  prop="book" label="预约状态" width="120">
                         <template slot-scope="scope">{{scope.row.book == 1 ? "已预约" : "可预约"}}</template>
                     </el-table-column>
                     <el-table-column prop="kind" label="类型" width="120" >
                     </el-table-column>
-                    <el-table-column prop="rate" label="收费标准" >
+                    <el-table-column prop="rate" label="收费标准 ：元/小时" >
                     </el-table-column>
-
                 </el-table>
             </el-main>
 
@@ -38,9 +35,8 @@
         },
         created() {
             var that = this
-            axios.get("http://10.144.20.209:8080").then(function (resp) {
+            axios.get("http://localhost:8080/field/").then(function (resp) {
                     that.fields = resp.data
-
                 }
             )
         }

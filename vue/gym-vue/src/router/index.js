@@ -66,57 +66,57 @@ const routes = [
     //     ]
     // },
     {
-        path: '/All',
+        path: '/field/All',
         name: 'all',
         component: () => import( '../views/CDGL/CdglView.vue')
     },
     {
-        path: '/Add',
+        path: '/field/Add',
         name: 'add',
         component: () => import( '../views/CDGL/CdglAddView.vue')
     },
     {
-        path: '/Book',
+        path: '/field/Book',
         name: 'book',
         component: () => import( '../views/CDGL/CdglBookView.vue')
     },
     {
-        path: '/CancleBook',
+        path: '/field/CancleBook',
         name: 'canclebook',
         component: () => import( '../views/CDGL/CdglCancleBookView.vue')
     },
     {
-        path: '/Del',
+        path: '/field/Del',
         name: 'del',
         component: () => import( '../views/CDGL/CdglDelView.vue')
     },
     {
-        path: '/Notice',
+        path: '/field/Notice',
         name: 'notice',
         component: () => import( '../views/CDGL/CdglNoticeView.vue')
     },
     {
-        path: '/QueryWeek',
+        path: '/field/QueryWeek',
         name: 'aqueryweek',
         component: () => import( '../views/CDGL/CdglQueryWeekView.vue')
     },
     {
-        path: '/Rate',
+        path: '/field/Rate',
         name: 'rate',
         component: () => import( '../views/CDGL/CdglRateView.vue')
     },
     {
-        path: '/Reserve',
+        path: '/field/Reserve',
         name: 'reserve',
         component: () => import( '../views/CDGL/CdglReserveView.vue')
     },
     {
-        path: '/UpdateBook',
+        path: '/field/UpdateBook',
         name: 'updateBook',
         component: () => import( '../views/CDGL/CdglUpdateBookView.vue')
     },
     {
-        path: '/Use',
+        path: '/field/Use',
         name: 'use',
         component: () => import( '../views/CDGL/CdglUseView.vue')
     },
