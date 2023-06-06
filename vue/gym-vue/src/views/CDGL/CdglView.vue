@@ -3,7 +3,7 @@
         
         <el-container>
             <el-main>
-                <el-table :data="fields" >
+                <el-table :data="fields">
                     <el-table-column prop="fieldName" label="场地名称" width="120">
                     </el-table-column>
                     <el-table-column prop="fieldid" label="场地编号" width="140">                       
@@ -13,7 +13,9 @@
                     </el-table-column>
                     <el-table-column prop="kind" label="类型" width="120" >
                     </el-table-column>
-                    <el-table-column prop="rate" label="收费标准 ：元/小时" >
+                    <el-table-column prop="rate" label="收费标准 ：元/小时" width="110" >
+                    </el-table-column>
+                    <el-table-column prop="location" label="场地位置" >
                     </el-table-column>
                 </el-table>
             </el-main>

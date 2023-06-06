@@ -4,10 +4,16 @@ import com.cdgl.mapper.fieldMapper;
 import com.cdgl.mapper.fieldNoticeMapper;
 import com.cdgl.pojo.field;
 import com.cdgl.pojo.fieldnotice;
+import com.cdgl.pojo.reservations;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -29,16 +35,31 @@ public class TestController {
     //查询已经预约的场地
     @RequestMapping("/unBook")
     public List<field> unbook(){
-        List<field> unbookfield =fieldMapper.unbook();
-        
-        return unbookfield;
+        List<field> all =fieldMapper.findAll();
+        return all;
+    }
+    @RequestMapping("/unBook1")
+    public List<reservations> unbook1(){
+        List<reservations> reservation =fieldMapper.unbook1();
+        return reservation;
+    }
+    @RequestMapping("/unBook2/{fieldid}")
+    public List<reservations> unbook2(@PathVariable Integer fieldid){
+        List<reservations> reservation =fieldMapper.unbook2(fieldid);
+        System.out.println(reservation);
+        return reservation;
+
     }
     //查询未预约的场地
     @RequestMapping("/Booked")
-    public List<field> booked(){
-        List<field> bookedfield =fieldMapper.booked();
+    public List<reservations> booked(){
+        List<reservations> bookedfield =fieldMapper.unbook1();
         return bookedfield;
     }
+
+
+
+
     //查询公告
     @RequestMapping("/Notice")
     public List<fieldnotice> fieldnotice(){
@@ -79,19 +100,53 @@ public class TestController {
     public void addfield(@RequestBody field field){
 //        System.out.println(field);
         fieldMapper.AddField(field);
+        System.out.println(field.getLocation());
 
     }
+
     //预约场地
     @PostMapping("/Book")
-    public void bookfield(@RequestBody field field){
-        fieldMapper.BookField(field);
+    public boolean bookfield(@RequestBody reservations reservation){
+        List<reservations> TimeCheck= fieldMapper.FieldBookCheckTime(reservation);
+        List<reservations> DateCheck=fieldMapper.FieldBookCheckDate(reservation);
+        boolean isTimeEmpty=TimeCheck.isEmpty();
+        boolean isDateEmpty=DateCheck.isEmpty();
+
+        System.out.println(isDateEmpty);
+        System.out.println(isTimeEmpty);
+        if (isDateEmpty==true){
+            fieldMapper.BookField1(reservation);
+            return true;
+        }else if(isTimeEmpty==true&&isDateEmpty==true)
+        {
+            fieldMapper.BookField1(reservation);
+            return true;
+        }else {
+            return false;
+        }
+//        fieldMapper.BookField1(reservation);
+//        return true;
     }
     //取消预约场地
-    @RequestMapping("/CancleBook/{fieldid}")
-    public void cancleBook(@PathVariable Integer fieldid){
-        fieldMapper.CancleBook(fieldid);
+    @RequestMapping("/CancleBook/{reservation_id}")
+    public void cancleBook(@PathVariable Integer reservation_id){
+        fieldMapper.CancleBook(reservation_id);
     }
 
-
+//    public void checkbook(reservations reservations){
+//        String day=reservations.getReservation_date()+"";
+//        String starttime=reservations.getStarttime();
+//        String endtime=reservations.getEndtime();
+//
+//        String sql = "SELECT COUNT(*) FROM reservations " +
+//                "WHERE reservation_date = ? " +
+//                "AND ((starttime >= ? AND starttime <= ?) " +
+//                "OR (starttime <= ? AND endtime >= ?) " +
+//                "OR (endtime >= ? AND endtime <= ?))";
+//
+//
+//
+//
+//        }
 
 }
