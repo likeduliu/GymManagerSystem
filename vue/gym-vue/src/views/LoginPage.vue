@@ -5,7 +5,7 @@
 <template>
   <div>
 
-    <el-form ref="form" :model="form" :rules="rules" label-width="150px">
+    <el-form ref="form" :model="form" :rules="rules" label-width="150px" >
       <el-form-item><img src="../static/pic/校徽.png" width="200px" ></el-form-item>
 
       <el-form-item><label>欢迎使用海大体育馆系统！</label></el-form-item>
@@ -27,7 +27,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .el-form{
   margin-top: 80px;
   margin-left: 25%;
