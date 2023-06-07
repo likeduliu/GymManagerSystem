@@ -1,145 +1,115 @@
+
 <template>
-  <el-container style="height: 560px; border: 1px solid #eee">
+  <div>
+    <el-form ref="form" model="form" id="searchform" label-width="200px">
+      <el-form-item label="学号/教职工号" style="margin-top: 50px">
+        <el-input v-model="form.userid"></el-input>
+      </el-form-item>
 
-    <el-container>
+      <el-form-item label="姓名">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
 
-      <el-main>
-        <el-table :data="fields">
-          <el-table-column prop="fieldName" label="场地名称" width="140">
-          </el-table-column>
-          <el-table-column prop="bookusername" label="预约者" width="120">
-          </el-table-column>
-          <el-table-column  label="预约开始时间">
-            <template slot-scope="scope">
-              <div>{{ fields[scope.row.fieldid].bookstarttime | formatDate }}</div>
-            </template>
-          </el-table-column>
-          <el-table-column prop="bookendtime" label="预约结束时间">
-            <template slot-scope="scope">
-              <div>{{ fields[scope.row.fieldid].bookendtime | formatDate }}</div>
-            </template>
-          </el-table-column>
+      <el-form-item label="所属院系/单位">
+        <el-select v-model="form.depatermentID" placeholder="请选择" style="width: 350px">
+          <el-option label="数学与计算机学院" value="10"></el-option>
+          <el-option label="文学与新闻传播院" value="14"></el-option>
+          <el-option label="水产学院" value="2"></el-option>
+          <el-option label="党委办公室" value="1"></el-option>
+        </el-select>
+      </el-form-item>
 
-        </el-table>
+      <el-form-item label="身份证号">
+        <el-input v-model="form.id"></el-input>
+      </el-form-item>
 
+      <el-form-item>
+        <el-button type="primary" @click="load">显示所有用户</el-button>
+        <el-button type="primary" @click="submitForm">根据条件查询</el-button>
+        <el-button type="primary" @click="resetform">重置条件</el-button>
+      </el-form-item>
+    </el-form>
 
-      </el-main>
+    <el-table
+        :data="userdata"
+        :row-class-name="tablerowclassname"
+        style="width: 100%"
+        @row-click="handleRowClick">
+      <el-table-column type="expand" >
+        <template v-slot:="scope">
+          <el-form label-position="left" inline class="demo-table-expand">
+            <el-form-item label="姓名">
+              <span>{{ scope.row.name }}</span>
+            </el-form-item>
+            <el-form-item label="院系">
+              <span>{{ scope.row.depaterment }}</span>
+            </el-form-item>
+            <el-form-item label="学号/教职工号" >
+              <span>{{ scope.row.userid }}</span>
+            </el-form-item>
+            <el-form-item label="身份证号">
+              <span>{{ scope.row.id }}</span>
+            </el-form-item>
+            <el-form-item label="联系电话">
+              <span>{{ scope.row.phone }}</span>
+            </el-form-item>
+            <el-form-item label="地址">
+              <span>{{ scope.row.address }}</span>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
+      <el-table-column
+          sortable
+          label="学号/教职工号"
+          prop="userid">
+      </el-table-column>
+      <el-table-column
+          label="姓名"
+          prop="name">
+      </el-table-column>
+      <el-table-column
+          label="角色"
+          prop="role">
+      </el-table-column>
+      <el-table-column label="操作">
+        <template>
+          <el-button
+              size="mini"
+              @click="handleEdit()">管理角色</el-button>
+          <el-button
+              size="mini"
+              type="danger"
+              @click="handleDelete(row)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
 
-
-    </el-container>
-  </el-container>
+    <RouterView/>
+  </div>
 </template>
-<!--<template>-->
-<!--  <div>-->
-<!--    <el-form ref="form" model="form" id="searchform" label-width="200px">-->
-<!--      <el-form-item label="学号/教职工号" style="margin-top: 50px">-->
-<!--        <el-input v-model="form.userid"></el-input>-->
-<!--      </el-form-item>-->
 
-<!--      <el-form-item label="姓名">-->
-<!--        <el-input v-model="form.name"></el-input>-->
-<!--      </el-form-item>-->
+<style scoped>
+.el-form{
+  text-align: center;
+}
+.el-input{
+  width: 350px;
+}
 
-<!--      <el-form-item label="所属院系/单位">-->
-<!--        <el-select v-model="form.depatermentID" placeholder="请选择" style="width: 350px">-->
-<!--          <el-option label="数学与计算机学院" value="10"></el-option>-->
-<!--          <el-option label="文学与新闻传播院" value="14"></el-option>-->
-<!--          <el-option label="水产学院" value="2"></el-option>-->
-<!--          <el-option label="党委办公室" value="1"></el-option>-->
-<!--        </el-select>-->
-<!--      </el-form-item>-->
-
-<!--      <el-form-item label="身份证号">-->
-<!--        <el-input v-model="form.id"></el-input>-->
-<!--      </el-form-item>-->
-
-<!--      <el-form-item>-->
-<!--        <el-button type="primary" @click="load">显示所有用户</el-button>-->
-<!--        <el-button type="primary" @click="submitForm">根据条件查询</el-button>-->
-<!--        <el-button type="primary" @click="resetform">重置条件</el-button>-->
-<!--      </el-form-item>-->
-<!--    </el-form>-->
-
-<!--    <el-table-->
-<!--        :data="userdata"-->
-<!--        :row-class-name="tablerowclassname"-->
-<!--        style="width: 100%"-->
-<!--        @row-click="handleRowClick">-->
-<!--      <el-table-column type="expand" >-->
-<!--        <template v-slot:="scope">-->
-<!--          <el-form label-position="left" inline class="demo-table-expand">-->
-<!--            <el-form-item label="姓名">-->
-<!--              <span>{{ scope.row.name }}</span>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="院系">-->
-<!--              <span>{{ scope.row.depaterment }}</span>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="学号/教职工号" >-->
-<!--              <span>{{ scope.row.userid }}</span>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="身份证号">-->
-<!--              <span>{{ scope.row.id }}</span>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="联系电话">-->
-<!--              <span>{{ scope.row.phone }}</span>-->
-<!--            </el-form-item>-->
-<!--            <el-form-item label="地址">-->
-<!--              <span>{{ scope.row.address }}</span>-->
-<!--            </el-form-item>-->
-<!--          </el-form>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-<!--      <el-table-column-->
-<!--          sortable-->
-<!--          label="学号/教职工号"-->
-<!--          prop="userid">-->
-<!--      </el-table-column>-->
-<!--      <el-table-column-->
-<!--          label="姓名"-->
-<!--          prop="name">-->
-<!--      </el-table-column>-->
-<!--      <el-table-column-->
-<!--          label="角色"-->
-<!--          prop="role">-->
-<!--      </el-table-column>-->
-<!--      <el-table-column label="操作">-->
-<!--        <template>-->
-<!--          <el-button-->
-<!--              size="mini"-->
-<!--              @click="handleEdit()">管理角色</el-button>-->
-<!--          <el-button-->
-<!--              size="mini"-->
-<!--              type="danger"-->
-<!--              @click="handleDelete(row)">删除</el-button>-->
-<!--        </template>-->
-<!--      </el-table-column>-->
-<!--    </el-table>-->
-
-<!--    <RouterView/>-->
-<!--  </div>-->
-<!--</template>-->
-
-<!--<style scoped>-->
-<!--.el-form{-->
-<!--  text-align: center;-->
-<!--}-->
-<!--.el-input{-->
-<!--  width: 350px;-->
-<!--}-->
-
-<!--.demo-table-expand {-->
-<!--  font-size: 0;-->
-<!--}-->
-<!--.demo-table-expand label {-->
-<!--  width: 90px;-->
-<!--  color: #99a9bf;-->
-<!--}-->
-<!--.demo-table-expand .el-form-item {-->
-<!--  margin-right: 0;-->
-<!--  margin-bottom: 0;-->
-<!--  width: 50%;-->
-<!--}-->
-<!--</style>-->
+.demo-table-expand {
+  font-size: 0;
+}
+.demo-table-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 50%;
+}
+</style>
 
 <script>
 import axios from "axios";
