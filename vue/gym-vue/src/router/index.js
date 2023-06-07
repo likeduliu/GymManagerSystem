@@ -140,6 +140,27 @@ const routes = [
         name: 'del',
         component: () => import( '../views/QCGL/QCGLDelView.vue')
     },
+    {
+        path: '/equipment/QueryRate',
+        name: 'rate',
+        component: () => import( '../views/QCGL/QCGLQueryRateView.vue')
+    },
+    {
+        path: '/equipment/Book',
+        name: 'book',
+        component: () => import( '../views/QCGL/QCGLBookView.vue')
+    },
+    {
+        path: '/equipment/Recover',
+        name: 'recover',
+        component: () => import( '../views/QCGL/QCGLRecoverView.vue')
+    },
+    {
+        path: '/equipment/Repair',
+        name: 'repair',
+        component: () => import( '../views/QCGL/QCGLRepairView.vue')
+    },
+    
 
 
 
