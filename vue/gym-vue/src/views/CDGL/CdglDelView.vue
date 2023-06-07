@@ -36,7 +36,7 @@
         
         methods:{
         del(fieldid){           
-            axios.delete("http://localhost:8080/field/Del/"+fieldid)
+            axios.delete("http://localhost:8082/field/Del/"+fieldid)
             .then(response => {
                     this.updated()
                 })
@@ -48,7 +48,7 @@
         },
         updated(){
             var that = this
-            axios.get("http://localhost:8080/field/").then(function (resp) {
+            axios.get("http://localhost:8082/field/").then(function (resp) {
                     that.fields = resp.data
                 }
             )
@@ -58,7 +58,7 @@
     },
         created() {
             var that = this
-            axios.get("http://localhost:8080/field/").then(function (resp) {
+            axios.get("http://localhost:8082/field/").then(function (resp) {
                     that.fields = resp.data
                     
                 }

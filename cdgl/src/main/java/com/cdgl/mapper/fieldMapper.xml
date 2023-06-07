@@ -55,6 +55,10 @@
         Delete from reservations WHERE reservation_id=#{reservation_id}
     </delete>
 
+    <delete id="canlbookbydel" parameterType="Integer">
+        DELETE  from reservations where fieldid=#{fieldid}
+    </delete>
+
 
 
 </mapper>

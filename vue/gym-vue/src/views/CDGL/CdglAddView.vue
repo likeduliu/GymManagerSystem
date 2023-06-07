@@ -35,9 +35,9 @@
                         </el-table-column>
                         <el-table-column prop="fieldid" label="场地编号" width="100">                       
                         </el-table-column>                        
-                        <el-table-column  prop="book" label="预约状态" width="120">
+                        <!-- <el-table-column  prop="book" label="预约状态" width="120">
                             <template slot-scope="scope">{{scope.row.book == 1 ? "已预约" : "可预约"}}</template>
-                        </el-table-column>
+                        </el-table-column> -->
                         <el-table-column prop="kind" label="类型" width="120" >
                         </el-table-column>
                         <el-table-column prop="rate" label="收费标准 ：元/小时" width="110" >
@@ -81,7 +81,7 @@
                 //     kind:this.kind,
                 //     book:this.book,
                 // }
-                axios.post("http://localhost:8080/field/Add",this.newfield)
+                axios.post("http://localhost:8082/field/Add",this.newfield)
                 .then(response => { 
                     //更新数据
                     this.updated()
@@ -94,7 +94,7 @@
             },
             updated(){
             var that = this
-            axios.get("http://localhost:8080/field/").then(function (resp) {
+            axios.get("http://localhost:8082/field/").then(function (resp) {
                     that.fields = resp.data
                 }
             )
@@ -105,7 +105,7 @@
         
         created() {
             var that = this
-            axios.get("http://localhost:8080/field/").then(function (resp) {
+            axios.get("http://localhost:8082/field/").then(function (resp) {
                     that.fields = resp.data
                     
                 }

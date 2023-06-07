@@ -54,7 +54,7 @@
     },
     methods:{
         canclebook(reservation_id){
-            axios.post("http://localhost:8080/field/CancleBook/"+reservation_id)
+            axios.post("http://localhost:8082/field/CancleBook/"+reservation_id)
             .then(response => {
                     this.update()
                 })
@@ -64,7 +64,7 @@
         },
         update(){
             var that = this
-            axios.get("http://localhost:8080/field/Booked").then(function (resp) {
+            axios.get("http://localhost:8082/field/Booked").then(function (resp) {
                     that.reservations = resp.data
                 }
             )
@@ -73,7 +73,7 @@
     
     created() {
             var that = this
-            axios.get("http://localhost:8080/field/Booked").then(function (resp) {
+            axios.get("http://localhost:8082/field/Booked").then(function (resp) {
                     that.reservations = resp.data
                 }
             )

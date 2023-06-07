@@ -60,7 +60,7 @@
         created() {
             var self = this
             const dateString=''
-            axios.get("http://localhost:8080/field/Booked").then(function (resp) {
+            axios.get("http://localhost:8082/field/Booked").then(function (resp) {
                     self.fields = resp.data;
                                         
                     
