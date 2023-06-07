@@ -11,6 +11,7 @@ public class reservations {
     String starttime;
     String endtime;
     String UserID;
+    String hour;
 
 }
 

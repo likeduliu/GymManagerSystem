@@ -2,16 +2,20 @@ package com.cdgl.controller;
 
 import com.cdgl.mapper.fieldMapper;
 import com.cdgl.mapper.fieldNoticeMapper;
+import com.cdgl.pojo.Coast;
 import com.cdgl.pojo.field;
 import com.cdgl.pojo.fieldnotice;
 import com.cdgl.pojo.reservations;
+import com.sun.org.apache.xerces.internal.xs.StringList;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -57,6 +61,12 @@ public class TestController {
         return bookedfield;
     }
 
+    //费用查询
+    @RequestMapping("/Coast")
+    public List<reservations> coasts(){
+        List<reservations> coasts1=fieldMapper.unbook1();
+        return coasts1;
+    }
 
 
 
@@ -112,41 +122,33 @@ public class TestController {
         boolean isTimeEmpty=TimeCheck.isEmpty();
         boolean isDateEmpty=DateCheck.isEmpty();
 
-        System.out.println(isDateEmpty);
-        System.out.println(isTimeEmpty);
+//        System.out.println(isDateEmpty);
+//        System.out.println(isTimeEmpty);
+//        System.out.println(TimeCheck);
         if (isDateEmpty==true){
             fieldMapper.BookField1(reservation);
+
+            System.out.println(reservation.getHour());
+            System.out.println(true);
             return true;
-        }else if(isTimeEmpty==true&&isDateEmpty==true)
+        }else if(isTimeEmpty==true&&isDateEmpty==false)
         {
             fieldMapper.BookField1(reservation);
+            System.out.println(true);
             return true;
-        }else {
+        }else if(isDateEmpty==false&&isTimeEmpty==false) {
+            System.out.println(false);
+            return false;
+        }else{
+            System.out.println(false);
             return false;
         }
-//        fieldMapper.BookField1(reservation);
-//        return true;
+
     }
     //取消预约场地
     @RequestMapping("/CancleBook/{reservation_id}")
     public void cancleBook(@PathVariable Integer reservation_id){
         fieldMapper.CancleBook(reservation_id);
     }
-
-//    public void checkbook(reservations reservations){
-//        String day=reservations.getReservation_date()+"";
-//        String starttime=reservations.getStarttime();
-//        String endtime=reservations.getEndtime();
-//
-//        String sql = "SELECT COUNT(*) FROM reservations " +
-//                "WHERE reservation_date = ? " +
-//                "AND ((starttime >= ? AND starttime <= ?) " +
-//                "OR (starttime <= ? AND endtime >= ?) " +
-//                "OR (endtime >= ? AND endtime <= ?))";
-//
-//
-//
-//
-//        }
 
 }

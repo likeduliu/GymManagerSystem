@@ -81,6 +81,7 @@
 
 <script>
     import axios from 'axios';
+    import moment from 'moment';
 
     export default {
         data() {
@@ -94,7 +95,8 @@
           fieldName:'',
           kind:'',
           rate:'',
-          book:''
+          book:'',
+          hour:'',
         },
         fields: [],
         reservations:[],
@@ -111,11 +113,12 @@
     methods: {
         //提交表单
         onSubmit(){
-                const field={
-                    fieldName:this.fieldName,
-                    kind:this.kind,
-                    book:this.book,
-                }
+                const starttime=moment(this.bookform.starttime,"HH:mm");
+                const endtime=moment(this.bookform.endtime,"HH:mm");
+
+                const hourDiff = endtime.diff(starttime, "hours");
+                //console.log(hourDiff);
+                this.bookform.hour=hourDiff
                 axios.post("http://localhost:8080/field/Book",this.bookform)
                 .then(response => { //更新数据
 
