@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .el-form{
   margin-top: 80px;
   margin-left: 25%;

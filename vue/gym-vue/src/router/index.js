@@ -124,22 +124,47 @@ const routes = [
         path: '/InitUser',
         name: 'InitUser',
         component: () => import( '../views/CDGL/CdglUseView.vue')
+    } ,
+    {
+        path: '/equipment/All',
+        name: 'all',
+        component: () => import( '../views/QCGL/QCGLQueryView.vue')
     },
     {
-        path: '/competition/information',
-        name: 'information',
-        component: () => import( '../views/SSGL/informationView.vue')
+        path: '/equipment/Add',
+        name: 'add',
+        component: () => import( '../views/QCGL/QCGLAddView.vue')
     },
     {
-        path: '/competition/creation',
-        name: 'creation',
-        component: () => import( '../views/SSGL/creationView.vue')
+        path: '/equipment/Del',
+        name: 'del',
+        component: () => import( '../views/QCGL/QCGLDelView.vue')
     },
     {
-        path: '/competition/cancellation',
-        name: 'cancellation',
-        component: () => import( '../views/SSGL/cancellationView.vue')
+        path: '/equipment/QueryRate',
+        name: 'rate',
+        component: () => import( '../views/QCGL/QCGLQueryRateView.vue')
     },
+    {
+        path: '/equipment/Book',
+        name: 'book',
+        component: () => import( '../views/QCGL/QCGLBookView.vue')
+    },
+    {
+        path: '/equipment/Recover',
+        name: 'recover',
+        component: () => import( '../views/QCGL/QCGLRecoverView.vue')
+    },
+    {
+        path: '/equipment/Repair',
+        name: 'repair',
+        component: () => import( '../views/QCGL/QCGLRepairView.vue')
+    },
+    
+
+
+
+
 
 ]
 
