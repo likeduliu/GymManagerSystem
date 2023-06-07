@@ -49,7 +49,9 @@
           &emsp;
           <span>赛事管理</span>
         </template>
-        <el-menu-item index="/">功能</el-menu-item>
+        <el-menu-item index="/competition/information">比赛信息</el-menu-item>
+        <el-menu-item index="/competition/creation">比赛创建</el-menu-item>
+        <el-menu-item index="/competition/cancellation">比赛取消</el-menu-item>
       </el-submenu>
 
       <el-submenu index="4">

@@ -124,7 +124,22 @@ const routes = [
         path: '/InitUser',
         name: 'InitUser',
         component: () => import( '../views/CDGL/CdglUseView.vue')
-    }
+    },
+    {
+        path: '/competition/information',
+        name: 'information',
+        component: () => import( '../views/SSGL/informationView.vue')
+    },
+    {
+        path: '/competition/creation',
+        name: 'creation',
+        component: () => import( '../views/SSGL/creationView.vue')
+    },
+    {
+        path: '/competition/cancellation',
+        name: 'cancellation',
+        component: () => import( '../views/SSGL/cancellationView.vue')
+    },
 
 ]
 
