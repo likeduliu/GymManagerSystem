@@ -14,6 +14,9 @@
                            <el-input  v-model="newequipment.amount" placeholder="器材数量"></el-input>
                             </el-form-item>
                             <el-form-item>
+                           <el-input  v-model="newequipment.rate" placeholder="器材收费标准"></el-input>
+                            </el-form-item>
+                            <el-form-item>
                             <el-button type="primary" @click="onSubmit">添加</el-button>
                             </el-form-item>
                             
@@ -26,6 +29,8 @@
                     <el-table-column prop="equipmentname" label="器材名称" width="120">
                     </el-table-column>
                     <el-table-column prop="amount" label="器材数量" width="120">
+                    </el-table-column>
+                    <el-table-column prop="rate" label="器材收费标准" width="120">
                     </el-table-column>
                     <el-table-column  prop="state" label="器材状态" >
                          <template slot-scope="scope">{{scope.row.state == 2? "不可租用" : "可租用"}}</template>
@@ -51,7 +56,7 @@
                     equipmentname:'',
                     state:'1',
                     amount:'',
-                    
+                    rate:'',
                 }
             }
         },
@@ -63,6 +68,7 @@
                     equipmentname:this.equipmentname,
                     state:this.state,
                     amount:this.amount,
+                    rate:this.rate,
                    
                 }
                 axios.post("http://localhost:8080/equipment/Add",this.newequipment)
