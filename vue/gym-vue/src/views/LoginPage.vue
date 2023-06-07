@@ -3,181 +3,185 @@
 </script>
 
 <template>
-
-    <div class="container-fluid">
-      <div class="row justify-content-center mt-5">
-        <div class="col-md-4 col-sm-6">
-          <div class="card">
-            <div class="card-header">{{ title }}</div>
-            <div class="card-body">
-              <form>
-                <div class="form-group">
-                  <label for="username">用户名</label>
-                  <input
-                      v-model="username"
-                      type="text"
-                      class="form-control"
-                      placeholder="请输入用户名"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="password">密码</label>
-                  <input
-                      v-model="password"
-                      type="password"
-                      class="form-control"
-                      placeholder="请输入密码"
-                  />
-                </div>
-                <button
-                    type="button"
-                    class="btn btn-primary btn-block"
-                    @click="login"
-                >
-                  登录
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  <!--  <div>-->
-
-<!--    <el-form ref="form" :model="form" :rules="rules" id="loginform" label-width="150px">-->
-<!--      <el-form-item><img src="../static/pic/校徽.png" width="200px" ></el-form-item>-->
-
-<!--      <el-form-item><label>欢迎使用海大体育馆系统！</label></el-form-item>-->
-
-<!--      <el-form-item label="学号/教职工号" prop="UserID">-->
-<!--        <el-input v-model="form.userid"></el-input>-->
-<!--      </el-form-item>-->
-
-<!--      <el-form-item label="密码" prop="Password">-->
-<!--        <el-input v-model="form.pw" type="password"></el-input>-->
-<!--      </el-form-item>-->
-
-<!--      <el-form-item>-->
-<!--        <el-button type="primary" @click="submitForm('form')">立即登录</el-button>-->
-<!--        <el-button @click="resetForm">重置</el-button>-->
-<!--      </el-form-item>-->
-<!--    </el-form>-->
-<!--    <router-view/>-->
-<!--  </div>-->
+    <div>
+      <el-form :model="form" ref="form" :rules="rules" label-position="left" label-width="80px" class="login-form" id="loginform">
+        <el-form-item><img src="../static/pic/校徽.png" width="200px" ></el-form-item>
+        <el-form-item><label>欢迎使用海大体育馆系统！</label></el-form-item>
+        <el-form-item label="账号" prop="userId" style="width: 400px;margin-left: 40%">
+          <el-input v-model="form.userID" placeholder="请输入用户名"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password" style="width: 400px;margin-left: 40%">
+          <el-input type="password" v-model="form.Password" placeholder="请输入密码"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm">登录</el-button>
+          <el-button @click="resetForm">重置</el-button>
+        </el-form-item>
+      </el-form>
+    <router-view/>
+  </div>
 </template>
 
 <style>
 .el-form{
   margin-top: 80px;
-  margin-left: 25%;
   text-align: center;
 }
-
 .el-input{
-  width: 400px;
+  width: 300px;
 }
-
-.el-form-item__content{
-  width: 400px;
-}
-
 label{
   color: dodgerblue;
   font-size: 24px;
 }
-
 </style>
 
-<script>
-import axios from "axios";
+<!--<script>-->
+<!--import axios from 'axios';-->
+<!--export default {-->
+<!--  data() {-->
+<!--    return {-->
+<!--      form: {-->
+<!--        userid:"",-->
+<!--        pw:"",-->
+<!--        // role:"",-->
+<!--        // token:""-->
+<!--      },-->
+<!--      rules:{-->
+<!--        userid:[-->
+<!--          {required:true,message:"学号/教职工号不能为空！",trigger:"blur"},-->
+<!--        ],-->
+<!--        pw:[-->
+<!--          {required:true,message:"密码不能为空！",trigger:"blur"}-->
+<!--        ]-->
+<!--      }-->
+<!--    }-->
+<!--  },-->
+<!--  methods: {-->
+<!--    Login() {-->
+<!--      axios.post('http://localhost:8081/user/login', this.form).then((resp) => {-->
+<!--        let data = resp.data-->
+<!--        if (data.success) {-->
+<!--          this.form = {};-->
+<!--          this.$message({-->
+<!--            message: '登录成功！',-->
+<!--            type: 'success',-->
+<!--          })-->
+<!--          this.$router.push('/index')-->
+<!--        }-->
+<!--      })-->
+<!--    },-->
 
+<!--    submitForm(formName) {-->
+<!--      this.$refs[formName].validate((valid) => {-->
+<!--        if (valid) {-->
+<!--          alert("submit!");-->
+<!--        } else {-->
+<!--          console.log("error submit!!");-->
+<!--          return false;-->
+<!--        }-->
+<!--      });-->
+<!--    },-->
+<!--    resetForm() {-->
+<!--      document.getElementById("loginform").reset();-->
+<!--    },-->
+<!--  },-->
+<!--  demo(){-->
+<!--    // 超级-->
+<!--    if (this.role === 'superadmin') {-->
+
+<!--      window.localStorage.setItem('roles','superadmin')-->
+<!--    // 场地-->
+<!--    } else if (this.role === 'cdadmin') {-->
+
+<!--      window.localStorage.setItem('roles','cdadmin')-->
+<!--    // 器材-->
+<!--    }  else if (this.role === 'qcadmin') {-->
+
+<!--      window.localStorage.setItem('roles','qcadmin')-->
+<!--    // 赛事-->
+<!--    }  else if (this.role === 'ssadmin') {-->
+
+<!--      window.localStorage.setItem('roles','ssadmin')-->
+<!--    // 赛事-->
+<!--    } else if (this.role === 'user') {-->
+
+<!--      window.localStorage.setItem('roles','user')-->
+
+<!--    }-->
+
+<!--  }-->
+<!--}-->
+<!--</script>-->
+
+<script>
+import axios from 'axios';
+import Vue from "vue";
 export default {
   data() {
     return {
-      title: "登录",
-      username: "",
-      password: ""
+      test:[],
+      form: {
+        userID: '',
+        Password: ''
+      },
+      rules: {
+        userID: [
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+        ],
+        Password: [
+          { required: true, message: '请输入密码', trigger: 'blur' }
+        ]
+      }
     };
   },
   methods: {
-    async login() {
-      try {
-        const response = await axios.post("/api/login", {
-          username: this.username,
-          password: this.password
-        });
+    submitForm() {
+      console.log(this.form)
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          // 发送登录请求
+          axios.post('/login',
+              this.form,
+              {
+                headers: {  //头部参数
+                  ContentType: 'application/json',
+                  token:sessionStorage.getItem('token')
+                }
+              }
+          )
+              .then(response => {
+                // 登录成功后跳转到首页
+                if (response.data.code === 0) {
+                  this.$message.success(response.data.message)
+                  // 将返回的用户数据存储到本地
+                  let user = JSON.stringify(response.data.data)
+                  localStorage.setItem('loginuser',user)
+                  const data=localStorage.getItem('loginuser')
 
-        if (response.status === 200) {
-          this.$store.commit("setUser", response.data);
-          this.$router.push("/index");
+                  console.log(data)
+
+                  this.$router.push('/index');
+                } else {
+                  // 如果登录失败，显示错误提示信息
+                  this.$message.error(response.data.message);
+                }
+              })
+              .catch(error => {
+                console.log(error);
+                this.$message.error('登录失败');
+              });
         } else {
-          alert("登录失败");
+          console.log('error submit');
+          return false;
         }
-      } catch (err) {
-        console.error(err);
-        alert("登录失败");
-      }
-    }
+      });
+    },
+    resetForm() {
+      document.getElementById("loginform").reset();
+    },
   }
 };
-// export default {
-//   data() {
-//     return {
-//       form: {
-//         userid:"",
-//         pw:"",
-//         role:""
-//       },
-//       rules:{
-//         userid:[
-//           {required:true,message:"学号/教职工号不能为空！",trigger:"blur"},
-//         ],
-//         pw:[
-//           {required:true,message:"密码不能为空！",trigger:"blur"}
-//         ]
-//       }
-//     }
-//   },
-//   methods: {
-//     submitForm(formName) {
-//       this.$refs[formName].validate((valid) => {
-//         if (valid) {
-//           alert("submit!");
-//         } else {
-//           console.log("error submit!!");
-//           return false;
-//         }
-//       });
-//     },
-//     resetForm() {
-//       document.getElementById("loginform").reset();
-//     },
-//   },
-//   demo(){
-//     // 超级
-//     if (this.role === 'superadmin') {
-//
-//       window.localStorage.setItem('roles','superadmin')
-//     // 场地
-//     } else if (this.role === 'cdadmin') {
-//
-//       window.localStorage.setItem('roles','cdadmin')
-//     // 器材
-//     }  else if (this.role === 'qcadmin') {
-//
-//       window.localStorage.setItem('roles','qcadmin')
-//     // 赛事
-//     }  else if (this.role === 'ssadmin') {
-//
-//       window.localStorage.setItem('roles','ssadmin')
-//     // 赛事
-//     } else if (this.role === 'user') {
-//
-//       window.localStorage.setItem('roles','user')
-//
-//     }
-//
-//   }
-// }
 </script>
+
+

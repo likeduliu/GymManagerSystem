@@ -6,7 +6,7 @@
       <el-dropdown>
        <span class="el-dropdown-link" style="line-height: 50px; text-align: center; font-size: 14px">
         <span class="iconfont icon-yonghu"></span>
-         用户名
+         <span id="username">{{username}}</span>
         <el-icon class="el-icon--right el-icon-arrow-down">
           <arrow-down/>
         </el-icon>
@@ -45,14 +45,21 @@ a:active{
 </style>
 
 <script>
-// import {ArrowDown} from "@element-plus/icons-vue";
-// import {User} from "@element-plus/icons-vue";
+
+
+
+let data=localStorage.getItem('loginuser')
+
 
 // export default {
 //   name: "APP",
-//   components: {
-//     ArrowDown,
-//     User
+//   data(){
+//     return{
+//       user:[]
+//     }
+//   },
+//   methods:{
+//     // this.user=data
 //   }
 // }
 </script>

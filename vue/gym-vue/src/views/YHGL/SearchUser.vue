@@ -1,173 +1,244 @@
-<script>
-
-import {transitionProps as form} from "vue/src/platforms/web/runtime/components/transition";
-import {defineComponent} from "vue";
-
-export default defineComponent({
-  computed: {
-    form() {
-      return form
-    }
-  }
-})
-
-</script>
-
 <template>
-  <div>
-    <el-form ref="form" model="form" id="searchform" label-width="200px">
-      <el-form-item label="学号/教职工号" style="margin-top: 50px">
-        <el-input v-model="form.userid"></el-input>
-      </el-form-item>
+  <el-container style="height: 560px; border: 1px solid #eee">
 
-      <el-form-item label="姓名">
-        <el-input v-model="form.name"></el-input>
-      </el-form-item>
+    <el-container>
 
-      <el-form-item label="所属院系/单位">
-        <el-select v-model="form.depaterment" placeholder="请选择" style="width: 350px">
-          <el-option label="数学与计算机学院" value="MathsAndComputer"></el-option>
-          <el-option label="文学与传媒院" value="ArtsandCommunications"></el-option>
-          <el-option label="水产学院" value="Fisheries"></el-option>
-          <el-option label="后勤集团" value="BackCrews"></el-option>
-        </el-select>
-      </el-form-item>
+      <el-main>
+        <el-table :data="fields">
+          <el-table-column prop="fieldName" label="场地名称" width="140">
+          </el-table-column>
+          <el-table-column prop="bookusername" label="预约者" width="120">
+          </el-table-column>
+          <el-table-column  label="预约开始时间">
+            <template slot-scope="scope">
+              <div>{{ fields[scope.row.fieldid].bookstarttime | formatDate }}</div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="bookendtime" label="预约结束时间">
+            <template slot-scope="scope">
+              <div>{{ fields[scope.row.fieldid].bookendtime | formatDate }}</div>
+            </template>
+          </el-table-column>
 
-      <el-form-item label="身份证号">
-        <el-input v-model="form.id"></el-input>
-      </el-form-item>
+        </el-table>
 
-      <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
-        <el-button type="primary" @click="resetform">重置</el-button>
-      </el-form-item>
-    </el-form>
 
-    <el-table
-        :data="userdata"
-        style="width: 100%">
-      <el-table-column type="expand" >
-        <template slot-scope="props">
-          <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="姓名">
-              <span>{{ props.row.name }}</span>
-            </el-form-item>
-            <el-form-item label="院系">
-              <span>{{ props.row.depaterment }}</span>
-            </el-form-item>
-            <el-form-item label="学号/教职工号">
-              <span>{{ props.row.userid }}</span>
-            </el-form-item>
-            <el-form-item label="身份证号">
-              <span>{{ props.row.id }}</span>
-            </el-form-item>
-            <el-form-item label="联系电话">
-              <span>{{ props.row.phone }}</span>
-            </el-form-item>
-            <el-form-item label="地址">
-              <span>{{ props.row.address }}</span>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
-      <el-table-column
-          sortable
-          label="学号/教职工号"
-          prop="userid">
-      </el-table-column>
-      <el-table-column
-          label="姓名"
-          prop="name">
-      </el-table-column>
-      <el-table-column
-          label="角色"
-          prop="role">
-      </el-table-column>
-      <el-table-column label="操作">
-        <template>
-          <el-button
-              size="mini"
-              @click="handleEdit()">管理角色</el-button>
-          <el-button
-              size="mini"
-              type="danger"
-              @click="handleDelete()">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+      </el-main>
 
-    <RouterView/>
-  </div>
+
+    </el-container>
+  </el-container>
 </template>
+<!--<template>-->
+<!--  <div>-->
+<!--    <el-form ref="form" model="form" id="searchform" label-width="200px">-->
+<!--      <el-form-item label="学号/教职工号" style="margin-top: 50px">-->
+<!--        <el-input v-model="form.userid"></el-input>-->
+<!--      </el-form-item>-->
 
-<style scoped>
-.el-form{
-  text-align: center;
-}
-.el-input{
-  width: 350px;
-}
+<!--      <el-form-item label="姓名">-->
+<!--        <el-input v-model="form.name"></el-input>-->
+<!--      </el-form-item>-->
 
-.demo-table-expand {
-  font-size: 0;
-}
-.demo-table-expand label {
-  width: 90px;
-  color: #99a9bf;
-}
-.demo-table-expand .el-form-item {
-  margin-right: 0;
-  margin-bottom: 0;
-  width: 50%;
-}
-</style>
+<!--      <el-form-item label="所属院系/单位">-->
+<!--        <el-select v-model="form.depatermentID" placeholder="请选择" style="width: 350px">-->
+<!--          <el-option label="数学与计算机学院" value="10"></el-option>-->
+<!--          <el-option label="文学与新闻传播院" value="14"></el-option>-->
+<!--          <el-option label="水产学院" value="2"></el-option>-->
+<!--          <el-option label="党委办公室" value="1"></el-option>-->
+<!--        </el-select>-->
+<!--      </el-form-item>-->
+
+<!--      <el-form-item label="身份证号">-->
+<!--        <el-input v-model="form.id"></el-input>-->
+<!--      </el-form-item>-->
+
+<!--      <el-form-item>-->
+<!--        <el-button type="primary" @click="load">显示所有用户</el-button>-->
+<!--        <el-button type="primary" @click="submitForm">根据条件查询</el-button>-->
+<!--        <el-button type="primary" @click="resetform">重置条件</el-button>-->
+<!--      </el-form-item>-->
+<!--    </el-form>-->
+
+<!--    <el-table-->
+<!--        :data="userdata"-->
+<!--        :row-class-name="tablerowclassname"-->
+<!--        style="width: 100%"-->
+<!--        @row-click="handleRowClick">-->
+<!--      <el-table-column type="expand" >-->
+<!--        <template v-slot:="scope">-->
+<!--          <el-form label-position="left" inline class="demo-table-expand">-->
+<!--            <el-form-item label="姓名">-->
+<!--              <span>{{ scope.row.name }}</span>-->
+<!--            </el-form-item>-->
+<!--            <el-form-item label="院系">-->
+<!--              <span>{{ scope.row.depaterment }}</span>-->
+<!--            </el-form-item>-->
+<!--            <el-form-item label="学号/教职工号" >-->
+<!--              <span>{{ scope.row.userid }}</span>-->
+<!--            </el-form-item>-->
+<!--            <el-form-item label="身份证号">-->
+<!--              <span>{{ scope.row.id }}</span>-->
+<!--            </el-form-item>-->
+<!--            <el-form-item label="联系电话">-->
+<!--              <span>{{ scope.row.phone }}</span>-->
+<!--            </el-form-item>-->
+<!--            <el-form-item label="地址">-->
+<!--              <span>{{ scope.row.address }}</span>-->
+<!--            </el-form-item>-->
+<!--          </el-form>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
+<!--      <el-table-column-->
+<!--          sortable-->
+<!--          label="学号/教职工号"-->
+<!--          prop="userid">-->
+<!--      </el-table-column>-->
+<!--      <el-table-column-->
+<!--          label="姓名"-->
+<!--          prop="name">-->
+<!--      </el-table-column>-->
+<!--      <el-table-column-->
+<!--          label="角色"-->
+<!--          prop="role">-->
+<!--      </el-table-column>-->
+<!--      <el-table-column label="操作">-->
+<!--        <template>-->
+<!--          <el-button-->
+<!--              size="mini"-->
+<!--              @click="handleEdit()">管理角色</el-button>-->
+<!--          <el-button-->
+<!--              size="mini"-->
+<!--              type="danger"-->
+<!--              @click="handleDelete(row)">删除</el-button>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
+<!--    </el-table>-->
+
+<!--    <RouterView/>-->
+<!--  </div>-->
+<!--</template>-->
+
+<!--<style scoped>-->
+<!--.el-form{-->
+<!--  text-align: center;-->
+<!--}-->
+<!--.el-input{-->
+<!--  width: 350px;-->
+<!--}-->
+
+<!--.demo-table-expand {-->
+<!--  font-size: 0;-->
+<!--}-->
+<!--.demo-table-expand label {-->
+<!--  width: 90px;-->
+<!--  color: #99a9bf;-->
+<!--}-->
+<!--.demo-table-expand .el-form-item {-->
+<!--  margin-right: 0;-->
+<!--  margin-bottom: 0;-->
+<!--  width: 50%;-->
+<!--}-->
+<!--</style>-->
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
+      row:{
+        name:'',
+        userid:''
+      },
       form: {
         userid:'',
         name: '',
-        depaterment: '',
+        depatermentID: '',
         id: '',
-        phone: '',
-        address:''
       },
       userdata:[
-        {
-          userid: '202011701308',
-          name: '黄林旭',
-          depaterment: '数学与计算机学院',
-          role: '超级管理员',
-          address: '海乐',
-          phone: '15777777777',
-          id: '440000000000000000'
-        },        {
-          userid: '202011701307',
-          name: '黄林旭',
-          depaterment: '数学与计算机学院',
-          role: '超级管理员',
-          address: '海乐',
-          phone: '15777777777',
-          id: '440000000000000000'
-        }
+        {name:'',
+         depaterment:'',
+          userid:'',
+          id:'',
+          phone:'',
+          address:'',
+         }
       ]
     }
   },
   methods: {
-    onSubmit() {
-      console.log('submit!');
+    submitForm() {
+      console.log(this.form)
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          // 发送登录请求
+          axios.post('/SearchUserBy',
+              this.form,
+              {
+                headers: {  //头部参数
+                  ContentType: 'application/json',
+                  token:sessionStorage.getItem('token')
+                }
+              }
+          )
+              .then(response => {
+                // 登录成功后跳转到首页
+                if (response.data.code === 0) {
+                  this.$message.success(response.data.message)
+                  this.userdata=[];
+                  this.userdata=response.data;
+                } else {
+                  // 如果登录失败，显示错误提示信息
+                  this.$message.error(response.data.message);
+                }
+              })
+              .catch(error => {
+                console.log(error);
+                this.$message.error('登录失败');
+              });
+        } else {
+          console.log('error submit');
+          return false;
+        }
+      });
     },
     resetform(){
       document.getElementById("searchform").reset();
     },
-    handleEdit(){
+    handleRowClick(row){
+      localStorage.setItem('row_info',row)
+      console.log(row);
+    },
+    handleEdit() {
       this.$router.push("ManagerRole");
     },
     handleDelete(){
+      const Role_Manager=localStorage.getItem('row_info');
+      console.log(Role_Manager)
       this.$router.push("/DeleteUser");
-    }
+    },
+    load(){
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          // 发送登录请求
+          axios.get("/SearchUser")
+              .then(response => {
+                this.userdata=[];
+                this.userdata=response.data;
+                console.log(this.userdata)
+              })
+              .catch(error => {
+                console.log(error);
+                this.$message.error('登录失败');
+              });
+        } else {
+          console.log('error submit');
+          return false;
+        }
+      });
+    },
   }
 }
 </script>

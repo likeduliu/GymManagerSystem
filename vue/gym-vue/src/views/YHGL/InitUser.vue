@@ -71,8 +71,8 @@ export default defineComponent({
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">确认注册</el-button>
-        <el-button type="primary" @click="resetform">重置</el-button>
+        <el-button type="primary" @click="submitForm">确认注册</el-button>
+        <el-button type="primary" @click="test">重置</el-button>
       </el-form-item>
 
     </el-form>
@@ -111,23 +111,46 @@ export default {
   },
   methods:
       {
-        onSubmit() {
-          const user = {
-            userid: this.userid,
-            name: this.name,
-            departermentID: this.departermentID,
-          }
-          axios.post("http://localhost:8081/InitUser", this.user)
-              .then(response => { //更新数据
-                this.updatedate()
-              })
-              .catch(error => {
-
-                console.error(error);
-              });
+        submitForm() {
+          console.log(this.form)
+          this.$refs.form.validate(valid => {
+            if (valid) {
+              // 发送登录请求
+              axios.post('/InitUser',
+                  this.form,
+                  {
+                    headers: {  //头部参数
+                      ContentType: 'application/json',
+                      token:sessionStorage.getItem('token')
+                    }
+                  }
+              )
+                  .then(response => {
+                    // 登录成功后跳转到首页
+                    if (response.data.code === 0) {
+                      this.$message.success('注册成功！')
+                    }else {
+                      // 如果登录失败，显示错误提示信息
+                      this.$message.error(response.data.message);
+                    }
+                  })
+                  .catch(error => {
+                    console.log(error);
+                    this.$message.error('登录失败');
+                  });
+            } else {
+              console.log('error submit');
+              return false;
+            }
+          });
         },
         resetform(){
           document.getElementById("userform").reset()
+        },
+        test(){
+          let data=localStorage.getItem('loginuser')
+          var obj=JSON.parse(data)
+          console.log(obj)
         }
       }
 }
