@@ -35,7 +35,7 @@
         <el-menu-item index="/field/Del">删除场地</el-menu-item>
         <el-menu-item index="/field/Book">预约场地</el-menu-item>
         <el-menu-item index="/field/CancleBook">取消预约</el-menu-item>
-        <el-menu-item index="/field/UpdateBook">场地预约修改</el-menu-item>
+        <!-- <el-menu-item index="/field/UpdateBook">场地预约修改</el-menu-item> -->
         <!-- <el-menu-item index="/field/QueryWeek">场地一周信息查询</el-menu-item> -->
         <el-menu-item index="/field/Use">场地费用结算</el-menu-item>
         <!-- <el-menu-item index="/field/Reserve">校队预留场地</el-menu-item> -->
@@ -49,7 +49,9 @@
           &emsp;
           <span>赛事管理</span>
         </template>
-        <el-menu-item index="/">功能</el-menu-item>
+        <el-menu-item index="/competition/information">比赛信息</el-menu-item>
+        <el-menu-item index="/competition/creation">比赛创建</el-menu-item>
+        <el-menu-item index="/competition/cancellation">比赛取消</el-menu-item>
       </el-submenu>
 
       <el-submenu index="4">
@@ -62,9 +64,9 @@
         <el-menu-item index="/equipment/Add">添加器材</el-menu-item>
         <el-menu-item index="/equipment/Del">删除器材</el-menu-item>
         <el-menu-item index="/equipment/Book">租用器材</el-menu-item>
-        <el-menu-item index="/equipment/CancleBook">器材维护</el-menu-item>
-        <el-menu-item index="/equipment/UpdateBook">回收器材</el-menu-item>
-        <el-menu-item index="/equipment/QueryWeek">器材收费查询</el-menu-item>
+        <el-menu-item index="/equipment/Repair">器材维护</el-menu-item>
+        <el-menu-item index="/equipment/Recover">回收器材</el-menu-item>
+        <el-menu-item index="/equipment/QueryRate">器材收费查询</el-menu-item>
         
       </el-submenu>
     </el-menu>

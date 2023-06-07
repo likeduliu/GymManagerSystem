@@ -12,9 +12,7 @@ public class equipment {
     private String amount;
     private String state;
     private String rate;
-    private String bookusername;
-    private Date bookstarttime;
-    private Date bookendtime;
+
 
 
 

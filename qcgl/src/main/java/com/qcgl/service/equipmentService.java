@@ -2,6 +2,9 @@ package com.qcgl.service;
 
 
 import com.qcgl.pojo.equipment;
+import com.qcgl.pojo.equipmentbook;
+import com.qcgl.pojo.equipmentrecover;
+import com.qcgl.pojo.equipmentrepair;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -15,20 +18,34 @@ public interface equipmentService {
     //查全部器材
     @Select("SELECT * from equipment")
     List<equipment> findAll();
-//    @Select("Select *from field where book='2' ")
-//    List<field> unbook();
-//    @Select("Select *from field where book='1'")
-//    List<field> booked();
+    //查全部器材收费标准
+    @Select("SELECT * from equipment")
+    List<equipment> QueryRate();
+    //查全部租用的器材
+    @Select("SELECT * from equipmentbook")
+    List<equipmentbook> QueryBook();
+    //查询全部返还的器材
+    @Select("SELECT * from equipmentrecover")
+    List<equipmentrecover> QueryRecover();
+    //查询全部维修的器材
+    @Select("Select * from equipmentrepair")
+    List<equipmentrepair> QueryRepair();
       //删除并更新器材
       @Delete("Delete * from equipment where equipmentid=#{equipmentid}")
       void Delequipment();
       @Update("ALTER TABLE equipment AUTO_INCREMENT = #{equipmentid}")
       void Updateequipment(Integer equipmentid);
       //添加器材
-      @Insert("INSERT INTO `equipment` (`equipmentname`, `amount`,`state`) VALUES (#{equipmentname}, #{amount}, #{state});")
+      @Insert("INSERT INTO `equipment` (`equipmentname`, `amount`,`rate`,`state`) VALUES (#{equipmentname}, #{amount},#{rate}, #{state});")
       void Addequipment();
-//    @Update("UPDATE field SET book = 1,bookusername=#{bookusername},bookstarttime=#{bookstarttime},bookendtime=#{bookendtime} WHERE fieldid = #{fieldid};")
-//    public void BookField(field field);
-//    @Update("UPDATE field SET book=2 WHERE fieldid=#{fieldid}")
-//    public void CancleBook(Integer fieldid);
+     //租用器材
+      @Insert("INSERT INTO `equipmentbook` (`equipmentid`, `bookusername`,`bookamount`,`bookstarttime`,`bookendtime`) VALUES (#{equipmentid}, #{bookusername},#{bookamount}, #{bookstarttime},#{bookendtime});")
+      void Bookequipment();
+      //返还器材
+      @Insert("INSERT INTO `equipmentrecover` (`equipmentid`, `recoverusername`,`recoveramount`) VALUES (#{equipmentid}, #{recoverusername},#{recoveramount});")
+       void Recoverequipment();
+      //维修器材
+      @Insert("INSERT INTO `equipmentrepair` (`equipmentid`, `repairamount`) VALUES (#{equipmentid}, #{repairamount});")
+      void Repairequipment();
+
 }

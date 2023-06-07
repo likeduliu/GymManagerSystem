@@ -112,7 +112,14 @@
                     that.fieldnotice = resp.data                 
                 }
             )
-        }
+        },
+        mounted() {
+          this.$nextTick(() => {
+            // 在 DOM 更新后执行布局操作
+            this.$refs.noticeForm.doLayout();
+          });
+        },
+
 
     }
 </script>

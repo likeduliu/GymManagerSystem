@@ -12,9 +12,11 @@ public class field {
     private String book;
     private String kind;
     private String rate;
-    private Date bookstarttime;
-    private Date bookendtime;
+    private Date starttime;
+    private Date endtime;
+    private Date reservation_date;
     private String bookusername;
+    private String location;
 
 
 

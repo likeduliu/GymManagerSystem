@@ -3,25 +3,31 @@
         <el-container>
           
             <el-main>
-                <el-table :data="tableData">
-                    <el-table-column label="场地费用结算" width="140">
+                <el-table :data="combinedData">
+                    <el-table-column prop="reservation_id" label="预约编号" width="120">
                     </el-table-column>
-                    <el-table-column prop="name" label="姓名" width="120">
+                    <el-table-column prop="fieldid" label="场地编号" width="100">
                     </el-table-column>
-                    <el-table-column prop="address" label="地址">
+                    <el-table-column  label="预约日期" width="120">
+                      <template slot-scope="scope1">
+                                            <div>{{ scope1.row.reservation_date | formatDate }}</div>
+                            </template>
                     </el-table-column>
-                </el-table>
-                <template>
-                  <div>
-                    <p>计时器：{{ formattedTime }}</p>
-                        <button @click="startTimer" :disabled="isTimerRunning">开始</button>
-                        <button @click="pauseTimer" :disabled="!isTimerRunning">暂停</button>
-                        <button @click="endTimer" :disabled="!isTimerRunning">结束</button>
-                        <p>费用：{{ calculateFee() }}</p>
-                  </div>
-                </template>
-
-                
+                    <el-table-column prop="starttime" label="预约开始时间" width="120">
+                    </el-table-column>
+                    <el-table-column prop="endtime" label="预约结束时间" width="120">
+                    </el-table-column>
+                    <el-table-column prop="hour" label="预约时长" width="120">
+                    </el-table-column>
+                    <el-table-column prop="rate" label="场地收费标准">
+                    </el-table-column>
+                    <el-table-column prop="" label="应付费用">
+                      <template slot-scope="scope">
+                          {{ scope.row.rate * scope.row.hour }}
+                        </template>
+                    </el-table-column>
+                    
+                </el-table>   
             </el-main>
 
 
@@ -31,68 +37,59 @@
 
 
 <script>  
+import axios from 'axios'
     export default {
         data() {
     return {
-      startTime: null, // 计时器开始时间
-      endTime: null, // 计时器结束时间
-      isTimerRunning: false // 计时器是否正在运行
-    };
-  },
-  computed: {
-    formattedTime() {
-      if (this.startTime && !this.endTime) {
-        // 计时器正在运行中
-        const currentTime = new Date().getTime();
-        const elapsedMilliseconds = currentTime - this.startTime;
-        return this.formatTime(elapsedMilliseconds);
-      } else if (this.startTime && this.endTime) {
-        // 计时器已结束
-        const elapsedMilliseconds = this.endTime - this.startTime;
-        return this.formatTime(elapsedMilliseconds);
-      } else {
-        // 计时器未开始
-        return '00:00:00';
-      }
-    }
-  },
-        methods: {
-            formatTime(milliseconds) {
-              const seconds = Math.floor((milliseconds / 1000) % 60);
-              const minutes = Math.floor((milliseconds / (1000 * 60)) % 60);
-              const hours = Math.floor((milliseconds / (1000 * 60 * 60)) % 24);
-              return `${this.padTime(hours)}:${this.padTime(minutes)}:${this.padTime(seconds)}`;
-            },
-            padTime(time) {
-              return time.toString().padStart(2, '0');
-            },
-            startTimer() {
-              this.startTime = new Date().getTime();
-              this.endTime = null;
-              this.isTimerRunning = true;
-            },
-            pauseTimer() {
-              this.endTime = new Date().getTime();
-              this.isTimerRunning = false;
-            },
-            endTimer() {
-              this.endTime = new Date().getTime();
-              this.isTimerRunning = false;
-              this.saveRecord(); // 保存记录和计算费用
-            },
-            calculateFee() {
-              if (this.startTime && this.endTime) {
-                const elapsedMilliseconds = this.endTime - this.startTime;
-                // 根据你的收费策略进行费用计算
-                // 这里只是一个示例，你需要根据实际情况进行调整
-                const hours = Math.ceil(elapsedMilliseconds / (1000 * 60 * 60));
-                const ratePerHour = 10; // 每小时费率
-                const fee = hours * ratePerHour;
-                return fee;
+      reservations:[],
+      fields:[],
+    
+  }
+  
+                                 
+    },
+    created() {
+            var that = this
+            axios.get("http://localhost:8080/field/Coast").then(function (resp) {
+                    that.reservations = resp.data
+                }
+            )
+
+
+            axios.get("http://localhost:8080/field/").then(function (resp) {
+                    that.fields = resp.data
+                }
+            )
+
+            this.combineData = [...this.reservations, ...this.fields.rate];
+        
+        },
+        filters: {
+            formatDate(value) {
+                const dateObject = new Date(value);
+                const year = dateObject.getFullYear();
+                const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+                const day = dateObject.getDate().toString().padStart(2, '0');
+                return `${year}-${month}-${day}`;
               }
-              return 0;
             },
-            
-        },       
-    }
+
+
+
+            //把2个数据源结合起来
+            computed: {
+              combinedData() {
+                return this.reservations.map((reservation) => {
+                  const field = this.fields.find((f) => f.fieldid === reservation.fieldid);
+                  return {
+                    ...reservation,
+                    rate: field ? field.rate : null,
+                  };
+                });
+              },
+            },
+
+
+    
+  }
 </script>
