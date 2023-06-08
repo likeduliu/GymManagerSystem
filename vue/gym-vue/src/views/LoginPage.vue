@@ -116,7 +116,24 @@ label{
 
 <script>
 import axios from 'axios';
-import Vue from "vue";
+const api = axios.create({
+  baseURL: '/api', // 基础URL  api接口
+
+});
+api.interceptors.request.use(
+    config => {
+      const token = localStorage.getItem('userid');
+      if (token) {
+        config.headers['token'] = token;
+      }
+      config.headers['Content-Type'] = 'application/json';
+      return config;
+    },
+    error => {
+      // 处理请求错误
+      return Promise.reject(error);
+    }
+);
 export default {
   data() {
     return {
