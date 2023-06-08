@@ -108,5 +108,9 @@ public class UserController {
         userService.DeleteUser(userid);
     }
 
+    public void test(){
+
+    }
+
 }
 
