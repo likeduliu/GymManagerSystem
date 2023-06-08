@@ -15,9 +15,9 @@
         </span>
           <template #dropdown>
             <el-dropdown-menu>
-              <el-dropdown-item>个人信息</el-dropdown-item>
-              <el-dropdown-item>更换账号</el-dropdown-item>
-              <el-dropdown-item>退出</el-dropdown-item>
+              <!--             <el-dropdown-item>个人信息</el-dropdown-item>-->
+              <!--             <el-dropdown-item>更换账号</el-dropdown-item>-->
+              <el-dropdown-item><el-button style="border: none" @click="Quit">退出</el-button>></el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -52,6 +52,12 @@ export default {
     return {
       user_name: "", // 初始化为空字符串
     };
+  },methods:{
+    Quit(){
+      localStorage.clear();
+      this.user_name="";
+      this.$router.push("/")
+    }
   },
   updated() {
     const userData = localStorage.getItem('loginuser');

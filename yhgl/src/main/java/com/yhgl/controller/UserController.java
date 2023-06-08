@@ -93,5 +93,20 @@ public class UserController {
         return null;
     }
 
+    @PostMapping("/ManagerRole")
+    public void ManagerRole(@RequestBody Map<String,Object> user){
+        String userid= (String) user.get("userid");
+        Integer roleid= Integer.parseInt((String)user.get("roleid"));
+        userService.ManagerRole(userid,roleid);
+    }
+
+    @PostMapping("/DeleteUser")
+    public void DeleteUser(@RequestBody Map<String,Object> user){
+        String userid= (String) user.get("userid");
+        System.out.println(userid);
+        System.out.println(user);
+        userService.DeleteUser(userid);
+    }
+
 }
 

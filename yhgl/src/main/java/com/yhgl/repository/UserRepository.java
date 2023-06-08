@@ -1,10 +1,7 @@
 package com.yhgl.repository;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.yhgl.entity.User;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,6 +14,8 @@ public interface UserRepository extends JpaRepository<User,String> {
 
 //    通过ID查找用户
     User findByUserID(String userId);
+
+    void deleteByUserID(String userID);
 
     @Select("Select * from field")
     List<User> findAll();

@@ -6,21 +6,20 @@
   <div>
     <el-form ref="form" :model="form" label-width="200px">
       <el-form-item label="学号/教职工号">
-        <p>{{ userid }}</p>
-        <p>{{$route.params}}</p>
+        <p>{{ user_id }}</p>
       </el-form-item>
 
       <el-form-item label="姓名">
-        <p>{{ name }}</p>
+        <p>{{ user_name }}</p>
       </el-form-item>
 
       <el-form-item label="用户角色">
-        <el-radio-group v-model="form.role">
-          <el-radio-button label="超级管理员" value="1"></el-radio-button>
-          <el-radio-button label="场地管理员" value="2"></el-radio-button>
-          <el-radio-button label="器材管理员" value="3"></el-radio-button>
-          <el-radio-button label="赛事管理员" value="4"></el-radio-button>
-          <el-radio-button label="普通用户" value="5"></el-radio-button>
+        <el-radio-group v-model="form.roleid">
+          <el-radio-button label="1" value="1">超级管理员</el-radio-button>
+          <el-radio-button label="2" value="2">场地管理员</el-radio-button>
+          <el-radio-button label="3" value="3">器材管理员</el-radio-button>
+          <el-radio-button label="4" value="4">赛事管理员</el-radio-button>
+          <el-radio-button label="5" value="5">普通用户</el-radio-button>
         </el-radio-group>
       </el-form-item>
 
@@ -49,29 +48,59 @@ p{
 </style>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
-      name:"",
-      userid:"",
+      user_name:"",
+      user_id:"",
       form: {
-        role:''
+        roleid:'',
+        userid:''
       }
     }
   },
 
   methods: {
     onSubmit() {
-      const name=localStorage.getItem('Role_Name')
-      console.log(name)
-      console.log('submit!');
+      this.form.userid=this.user_id
+      console.log(this.form)
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          // 发送登录请求
+          axios.post('/ManagerRole',
+              this.form,
+              {
+                headers: {  //头部参数
+                  ContentType: 'application/json',
+                  token:sessionStorage.getItem('token')
+                }
+              }
+          )
+              .then(response => {
+                this.$router.push("SearchUser")
+              })
+              .catch(error => {
+                console.log(error);
+                this.$message.error('登录失败');
+              });
+        } else {
+          console.log('error submit');
+          return false;
+        }
+      });
+
     },
     backwards(){
       this.$router.push("SearchUser");
-    },create(){
-      const Role_Manager=localStorage.getItem('row_info');
-      console.log(Role_Manager)
     }
+  },
+  mounted(){
+    const userid=this.$route.params.e.userID
+    const username=this.$route.params.e.name
+    this.user_id=userid
+    this.user_name=username
   }
 }
 </script>

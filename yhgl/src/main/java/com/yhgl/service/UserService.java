@@ -8,6 +8,7 @@ import com.yhgl.entity.User;
 import com.yhgl.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -62,5 +63,16 @@ public class UserService {
     public List<User> findUserBy(String userid,String name,Integer departmentID,String id) {
         System.out.println(userRepository.findUserBy(userid,name,departmentID,id));
         return userRepository.findUserBy(userid,name,departmentID,id);
+    }
+
+    public void ManagerRole(String userid, int roleid) {
+        User u = findUser(userid);
+        u.setRoleID(roleid);
+        userRepository.save(u);
+    }
+    @Transactional
+    public void DeleteUser(String userid) {
+        User u = findUser(userid);
+        userRepository.deleteByUserID(userid);
     }
 }

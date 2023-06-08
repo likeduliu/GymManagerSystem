@@ -156,9 +156,12 @@ export default {
                   this.$message.success(response.data.message)
                   // 将返回的用户数据存储到本地
                   let user = JSON.stringify(response.data.data)
+                  let roleid = JSON.stringify(response.data.data.roleID)
                   localStorage.setItem('loginuser',user)
+                  localStorage.setItem('logintoken',roleid)
                   const data=localStorage.getItem('loginuser')
-
+                  const token=localStorage.getItem('logintoken')
+                  console.log(token)
                   console.log(data)
 
                   this.$router.push('/index');

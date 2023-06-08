@@ -98,6 +98,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      token:{},
       form: {
         userid: '',
         name: '',
@@ -108,6 +109,12 @@ export default {
         address: ''
       }
     }
+  },
+  mounted(){
+    this.token=localStorage.getItem('logintoken')
+
+    console.log(this.token)
+
   },
   methods:
       {

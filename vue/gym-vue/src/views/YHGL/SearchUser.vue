@@ -42,10 +42,10 @@
               <span>{{ scope.row.name }}</span>
             </el-form-item>
             <el-form-item label="院系">
-              <span>{{ scope.row.depaterment }}</span>
+              <span>{{ scope.row.departmentID }}</span>
             </el-form-item>
             <el-form-item label="学号/教职工号" >
-              <span>{{ scope.row.userid }}</span>
+              <span>{{ scope.row.userID }}</span>
             </el-form-item>
             <el-form-item label="身份证号">
               <span>{{ scope.row.id }}</span>
@@ -73,14 +73,14 @@
           prop="role">
       </el-table-column>
       <el-table-column label="操作">
-        <template>
+        <template slot-scope="scope">
           <el-button
               size="mini"
-              @click="handleEdit()">管理角色</el-button>
+              @click="handleEdit(scope.row)">管理角色</el-button>
           <el-button
               size="mini"
               type="danger"
-              @click="handleDelete(row)">删除</el-button>
+              @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -124,13 +124,13 @@ export default {
       form: {
         userid:'',
         name: '',
-        depatermentID: '',
+        departmentID: '',
         id: '',
       },
       userdata:[
         {name:'',
-         depaterment:'',
-          userid:'',
+         depatermentID:'',
+          userID:'',
           id:'',
           phone:'',
           address:'',
@@ -177,17 +177,33 @@ export default {
     resetform(){
       document.getElementById("searchform").reset();
     },
-    handleRowClick(row){
-      localStorage.setItem('row_info',row)
-      console.log(row);
-    },
-    handleEdit() {
-      this.$router.push("ManagerRole");
-    },
-    handleDelete(){
-      const Role_Manager=localStorage.getItem('row_info');
-      console.log(Role_Manager)
-      this.$router.push("/DeleteUser");
+    // handleRowClick(row){
+    //   localStorage.setItem('row_info',row)
+    //   console.log(row);
+    // },
+    handleEdit(e) {
+      console.log(e)
+
+      this.$router.push(
+          {
+            name:'ManagerRole',
+            params:{
+              e
+            }
+          }
+      );
+      },
+    handleDelete(e){
+      console.log(e)
+
+      this.$router.push(
+          {
+            name:'DeleteUser',
+            params:{
+              e
+            }
+          }
+      );
     },
     load(){
       this.$refs.form.validate(valid => {
