@@ -76,7 +76,7 @@ export default {
                 starttime:this.starttime,
                 endtime:this.endtime,
             }
-            axios.post("http://localhost:8080/competition/Add",this.newcompetition)
+            axios.post("http://localhost:9093/competition/Add",this.newcompetition)
             .then(response => {//更新数据
                 this.updatedate()
             })
@@ -87,14 +87,15 @@ export default {
     },
     created() {
         var that = this
-        axios.get("http://localhost:8080/competition/").then(function (resp) {
+        axios.get("http://localhost:9093/competition").then(function (resp) {
                     that.competition = resp.data
+          console.log(resp.data)
                 }
             )
     },
     updated(){
             var that = this
-            axios.get("http://localhost:8080/competition/").then(function (resp) {
+            axios.get("http://localhost:9093/competition").then(function (resp) {
                     that.competition = resp.data
                 }
             )
