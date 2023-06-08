@@ -53,14 +53,14 @@
         methods: {
             editNotice(fieldnoticeid){
                 var that = this
-                 axios.get("http://localhost:8080/field/NoticeEdit/"+fieldnoticeid).then(function (resp) {
+                 axios.get("http://localhost:8082/field/NoticeEdit/"+fieldnoticeid).then(function (resp) {
                     that.currentNotice = resp.data                 
                 } )  
                 this.editingIndex=1;                             
             },
             saveNotice(){
                 if(this.editingIndex===1){
-                    axios.post("http://localhost:8080/field/UpdateFieldNotice",this.currentNotice)
+                    axios.post("http://localhost:8082/field/UpdateFieldNotice",this.currentNotice)
                     .then(response => { //更新数据
                         this.update()
                     })
@@ -68,7 +68,7 @@
                     console.error(error);
                     });                 
                 }else{
-                    axios.post("http://localhost:8080/field/AddFieldNotice",this.currentNotice)
+                    axios.post("http://localhost:8082/field/AddFieldNotice",this.currentNotice)
                     .then(response => { //更新数据
                         this.update()
                     })
@@ -81,14 +81,14 @@
             },
             update(){
                 var that = this
-                axios.get("http://localhost:8080/field/Notice").then(function (resp) {
+                axios.get("http://localhost:8082/field/Notice").then(function (resp) {
                     that.fieldnotice = resp.data                 
                 }
             )
             },
             deleteNotice(fieldnoticeid){
                 var that = this
-                 axios.get("http://localhost:8080/field/NoticeDelete/"+fieldnoticeid)
+                 axios.get("http://localhost:8082/field/NoticeDelete/"+fieldnoticeid)
                  .then(response => { //更新数据
                         this.update()
                     })
@@ -108,7 +108,7 @@
         },
         created() {
             var that = this
-            axios.get("http://localhost:8080/field/Notice").then(function (resp) {
+            axios.get("http://localhost:8082/field/Notice").then(function (resp) {
                     that.fieldnotice = resp.data                 
                 }
             )

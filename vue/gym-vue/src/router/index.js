@@ -28,7 +28,10 @@ const routes = [
             {
                 path:'/InitUser',
                 name:'InitUser',
-                component:()=>import('../views/YHGL/InitUser.vue')
+                component:()=>import('../views/YHGL/InitUser.vue'),
+                meta:{
+                    requireAuth:true,visible:true,token:['0']
+                }
             },
             {
                 path:'/ManagerRole',

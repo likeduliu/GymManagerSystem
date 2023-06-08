@@ -1,10 +1,7 @@
-<script>
-
-</script>
 
 <template>
   <div>
-    <el-form ref="form" :model="form" label-width="200px">
+    <el-form ref="form" model="form" id="searchform" label-width="200px">
       <el-form-item label="学号/教职工号" style="margin-top: 50px">
         <el-input v-model="form.userid"></el-input>
       </el-form-item>
@@ -14,11 +11,11 @@
       </el-form-item>
 
       <el-form-item label="所属院系/单位">
-        <el-select v-model="form.depaterment" placeholder="请选择" style="width: 350px">
-          <el-option label="数学与计算机学院" value="MathsAndComputer"></el-option>
-          <el-option label="文学与传媒院" value="ArtsandCommunications"></el-option>
-          <el-option label="水产学院" value="Fisheries"></el-option>
-          <el-option label="后勤集团" value="BackCrews"></el-option>
+        <el-select v-model="form.depatermentID" placeholder="请选择" style="width: 350px">
+          <el-option label="数学与计算机学院" value="10"></el-option>
+          <el-option label="文学与新闻传播院" value="14"></el-option>
+          <el-option label="水产学院" value="2"></el-option>
+          <el-option label="党委办公室" value="1"></el-option>
         </el-select>
       </el-form-item>
 
@@ -27,34 +24,37 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
-        <el-button>取消</el-button>
+        <el-button type="primary" @click="load">显示所有用户</el-button>
+        <el-button type="primary" @click="submitForm">根据条件查询</el-button>
+        <el-button type="primary" @click="resetform">重置条件</el-button>
       </el-form-item>
     </el-form>
 
     <el-table
         :data="userdata"
-        style="width: 100%">
+        :row-class-name="tablerowclassname"
+        style="width: 100%"
+        @row-click="handleRowClick">
       <el-table-column type="expand" >
-        <template slot-scope="props">
+        <template v-slot:="scope">
           <el-form label-position="left" inline class="demo-table-expand">
             <el-form-item label="姓名">
-              <span>{{ props.row.name }}</span>
+              <span>{{ scope.row.name }}</span>
             </el-form-item>
             <el-form-item label="院系">
-              <span>{{ props.row.depaterment }}</span>
+              <span>{{ scope.row.departmentID }}</span>
             </el-form-item>
-            <el-form-item label="学号/教职工号">
-              <span>{{ props.row.userid }}</span>
+            <el-form-item label="学号/教职工号" >
+              <span>{{ scope.row.userID }}</span>
             </el-form-item>
             <el-form-item label="身份证号">
-              <span>{{ props.row.id }}</span>
+              <span>{{ scope.row.id }}</span>
             </el-form-item>
             <el-form-item label="联系电话">
-              <span>{{ props.row.phone }}</span>
+              <span>{{ scope.row.phone }}</span>
             </el-form-item>
             <el-form-item label="地址">
-              <span>{{ props.row.address }}</span>
+              <span>{{ scope.row.address }}</span>
             </el-form-item>
           </el-form>
         </template>
@@ -76,11 +76,11 @@
         <template slot-scope="scope">
           <el-button
               size="mini"
-              @click="handleEdit(scope.$index, scope.row)">管理角色</el-button>
+              @click="handleEdit(scope.row)">管理角色</el-button>
           <el-button
               size="mini"
               type="danger"
-              @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+              @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -112,42 +112,119 @@
 </style>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
+      row:{
+        name:'',
+        userid:''
+      },
       form: {
         userid:'',
         name: '',
-        depaterment: '',
+        departmentID: '',
         id: '',
-        phone: '',
-        address:''
       },
       userdata:[
-        {
-          userid: '202011701308',
-          name: '黄林旭',
-          depaterment: '数学与计算机学院',
-          role: '超级管理员',
-          address: '海乐',
-          phone: '15777777777',
-          id: '440000000000000000'
-        },        {
-          userid: '202011701307',
-          name: '黄林旭',
-          depaterment: '数学与计算机学院',
-          role: '超级管理员',
-          address: '海乐',
-          phone: '15777777777',
-          id: '440000000000000000'
-        }
+        {name:'',
+         depatermentID:'',
+          userID:'',
+          id:'',
+          phone:'',
+          address:'',
+         }
       ]
     }
   },
   methods: {
-    onSubmit() {
-      console.log('submit!');
-    }
+    submitForm() {
+      console.log(this.form)
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          // 发送登录请求
+          axios.post('/SearchUserBy',
+              this.form,
+              {
+                headers: {  //头部参数
+                  ContentType: 'application/json',
+                  token:sessionStorage.getItem('token')
+                }
+              }
+          )
+              .then(response => {
+                // 登录成功后跳转到首页
+                if (response.data.code === 0) {
+                  this.$message.success(response.data.message)
+                  this.userdata=[];
+                  this.userdata=response.data;
+                } else {
+                  // 如果登录失败，显示错误提示信息
+                  this.$message.error(response.data.message);
+                }
+              })
+              .catch(error => {
+                console.log(error);
+                this.$message.error('登录失败');
+              });
+        } else {
+          console.log('error submit');
+          return false;
+        }
+      });
+    },
+    resetform(){
+      document.getElementById("searchform").reset();
+    },
+    // handleRowClick(row){
+    //   localStorage.setItem('row_info',row)
+    //   console.log(row);
+    // },
+    handleEdit(e) {
+      console.log(e)
+
+      this.$router.push(
+          {
+            name:'ManagerRole',
+            params:{
+              e
+            }
+          }
+      );
+      },
+    handleDelete(e){
+      console.log(e)
+
+      this.$router.push(
+          {
+            name:'DeleteUser',
+            params:{
+              e
+            }
+          }
+      );
+    },
+    load(){
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          // 发送登录请求
+          axios.get("/SearchUser")
+              .then(response => {
+                this.userdata=[];
+                this.userdata=response.data;
+                console.log(this.userdata)
+              })
+              .catch(error => {
+                console.log(error);
+                this.$message.error('登录失败');
+              });
+        } else {
+          console.log('error submit');
+          return false;
+        }
+      });
+    },
   }
 }
 </script>

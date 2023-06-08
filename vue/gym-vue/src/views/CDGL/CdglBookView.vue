@@ -119,7 +119,7 @@
                 const hourDiff = endtime.diff(starttime, "hours");
                 //console.log(hourDiff);
                 this.bookform.hour=hourDiff
-                axios.post("http://localhost:8080/field/Book",this.bookform)
+                axios.post("http://localhost:8082/field/Book",this.bookform)
                 .then(response => { //更新数据
 
                     this.updated()
@@ -149,14 +149,14 @@
       
       updated(){
             var that = this
-            axios.get("http://localhost:8080/field/unBook").then(function (resp) {
+            axios.get("http://localhost:8082/field/unBook").then(function (resp) {
                     that.fields = resp.data
                 }
             )
         },
         showtime(fieldid){
             var that=this
-            axios.get("http://localhost:8080/field/unBook2/"+fieldid)
+            axios.get("http://localhost:8082/field/unBook2/"+fieldid)
             .then(function (resp) {
                     that.reservations = resp.data
                 })
@@ -170,7 +170,7 @@
     
     created() {
             var that = this
-            axios.get("http://localhost:8080/field/unBook").then(function (resp) {
+            axios.get("http://localhost:8082/field/unBook").then(function (resp) {
                     that.fields = resp.data
                 },
                 

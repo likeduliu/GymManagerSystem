@@ -6,7 +6,7 @@ import router from './router'
 import axios from 'axios'
 Vue.prototype.$http=axios;
 import '../src/static/iconFont/iconfont.css'
-
+axios.defaults.baseURL = 'http://localhost:8081';
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(axios)
