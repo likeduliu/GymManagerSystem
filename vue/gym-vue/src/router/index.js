@@ -163,6 +163,17 @@ const routes = [
         name: 'repair',
         component: () => import( '../views/QCGL/QCGLRepairView.vue')
     },
+    {
+        path: '/equipment/Repair',
+        name: 'repair',
+        component: () => import( '../views/QCGL/QCGLRepairView.vue')
+    },
+    {
+        path: '/equipment/Repair',
+        name: 'repair',
+        component: () => import( '../views/QCGL/QCGLRepairView.vue')
+    },
+    
     
 
 
