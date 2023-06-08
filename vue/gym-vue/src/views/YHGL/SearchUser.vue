@@ -25,8 +25,8 @@
 
       <el-form-item>
         <el-button type="primary" @click="load">显示所有用户</el-button>
-        <el-button type="primary" @click="submitForm">根据条件查询</el-button>
-        <el-button type="primary" @click="resetform">重置条件</el-button>
+<!--        <el-button type="primary" @click="submitForm">根据条件查询</el-button>-->
+<!--        <el-button type="primary" @click="resetform">重置条件</el-button>-->
       </el-form-item>
     </el-form>
 

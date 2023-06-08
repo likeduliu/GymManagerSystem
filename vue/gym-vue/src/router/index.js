@@ -4,6 +4,31 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+//路由全局前置守卫
+
+const beforeEachGuard = (to, from, next) => {
+    if ( to.path === '/login' || to.path === '/') {
+        // 若是进入登录与注册页面，直接通过
+        next();
+    } else {
+        let userToken = localStorage.getItem('logintoken');
+        console.log("Token为: " + userToken);
+        if (userToken == null || userToken == '') {
+            alert("无权限，请先登录!");
+            next('/');
+        } else {
+            if(userToken==="5"){
+                if(to.path === '/InitUser'){
+                    alert("无权限，请先登录!");
+                    next('/');
+                }
+            }
+            next();
+        }
+    }
+};
+
+
 const routes = [
     {
         // 登陆页面
@@ -185,8 +210,10 @@ const routes = [
 
 ]
 
+
 const router = new VueRouter({
     routes
 })
+router.beforeEach(beforeEachGuard);
 
 export default router
