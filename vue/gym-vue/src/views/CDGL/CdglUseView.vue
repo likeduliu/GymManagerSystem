@@ -50,13 +50,13 @@ import axios from 'axios'
     },
     created() {
             var that = this
-            axios.get("http://localhost:8080/field/Coast").then(function (resp) {
+            axios.get("http://localhost:8082/field/Coast").then(function (resp) {
                     that.reservations = resp.data
                 }
             )
 
 
-            axios.get("http://localhost:8080/field/").then(function (resp) {
+            axios.get("http://localhost:8082/field/").then(function (resp) {
                     that.fields = resp.data
                 }
             )
