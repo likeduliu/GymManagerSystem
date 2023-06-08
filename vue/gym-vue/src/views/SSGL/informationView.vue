@@ -33,7 +33,7 @@ export default {
     },
     created() {
             var that = this
-            axios.get("http://localhost:8080/competition/").then(function (resp) {
+            axios.get("http://localhost:9093/competition").then(function (resp) {
                     that.competition = resp.data
                 }
             )

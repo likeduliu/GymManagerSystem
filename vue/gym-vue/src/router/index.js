@@ -164,17 +164,20 @@ const routes = [
         component: () => import( '../views/QCGL/QCGLRepairView.vue')
     },
     {
-        path: '/equipment/Repair',
-        name: 'repair',
-        component: () => import( '../views/QCGL/QCGLRepairView.vue')
+        path: '/competition/information',
+        name: 'info',
+        component: () => import( '../views/SSGL/informationView.vue')
     },
     {
-        path: '/equipment/Repair',
-        name: 'repair',
-        component: () => import( '../views/QCGL/QCGLRepairView.vue')
+        path: '/competition/creation',
+        name: 'creation',
+        component: () => import( '../views/SSGL/creationView.vue')
     },
-    
-    
+    {
+        path: '/competition/cancellation',
+        name: 'cancellation',
+        component: () => import( '../views/SSGL/cancellationView.vue')
+    },
 
 
 

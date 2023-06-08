@@ -37,7 +37,7 @@ import axios from 'axios'
 
         methods:{
             del(competitionid){
-                axios.delete("http://localhost:8080/competition/Del/"+competitionid)
+                axios.delete("http://localhost:9093/competition/Del/"+competitionid)
             .then(response => {
                     this.updatedate()
                 })
@@ -48,14 +48,14 @@ import axios from 'axios'
             }},
             created() {
             var that = this
-            axios.get("http://localhost:8080/competition/").then(function (resp) {
+            axios.get("http://localhost:9093/competition").then(function (resp) {
                     that.competitions = resp.data
                 }
             )
         },
         updatedate(){
             var that = this
-            axios.get("http://localhost:8080/competition/").then(function (resp) {
+            axios.get("http://localhost:9093/competition").then(function (resp) {
                     that.competitions = resp.data
                 }
             )
