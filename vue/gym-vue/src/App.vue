@@ -57,7 +57,7 @@ export default {
       localStorage.clear();
       this.user_name="";
       this.$router.push("/login")
-      location.reload()
+      window.location.reload()
     },
   },
   updated() {

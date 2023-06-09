@@ -17,10 +17,10 @@
           &emsp;
           <span>用户管理</span>
         </template>
-        <el-menu-item index="/InitUser" v-if="parseInt(token)===1">普通用户注册</el-menu-item>
+        <el-menu-item index="/User/InitUser" v-if="parseInt(token)===1">普通用户注册</el-menu-item>
 <!--        <el-menu-item index="/ManagerRole">用户角色管理</el-menu-item>-->
-        <el-menu-item index="ChangePw">修改密码</el-menu-item>
-        <el-menu-item index="SearchUser">查询用户</el-menu-item>
+        <el-menu-item index="/User/ChangePw">修改密码</el-menu-item>
+        <el-menu-item index="/User/SearchUser" v-if="parseInt(token)===1">查询用户</el-menu-item>
 <!--        <el-menu-item index="DeleteUser">删除用户</el-menu-item>-->
       </el-submenu>
 

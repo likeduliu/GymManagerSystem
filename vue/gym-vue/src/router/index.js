@@ -7,10 +7,41 @@ Vue.use(VueRouter)
 //路由全局前置守卫
 
 const beforeEachGuard = (to, from, next) => {
+    let userToken = localStorage.getItem('logintoken');
     if ( to.path === '/login' || to.path === '/') {
         // 若是进入登录页面，直接通过
         next();
-    } else {
+    }
+    // else if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'){
+    //     if(userToken!="1"){
+    //         alert("无权限，请先登录！")
+    //     }else{next();}
+    // }
+    // else if(to.path === '/field/Add'|| to.path === '/field/Del'|| to.path === '/field/Notice'|| to.path === '/User/SearchUser'){
+    //     if(userToken!="1"||userToken!="2"){
+    //         alert("无权限，请先登录！")
+    //     }else{next();}
+    // }
+    // else if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'){
+    //     if(userToken!="1"||userToken!="3"){
+    //         alert("无权限，请先登录！")
+    //     }else{next();}
+    // }
+    // else if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'){
+    //     if(userToken!="1"||userToken!="4"){
+    //         alert("无权限，请先登录！")
+    //     }else{next();}
+    // }
+    // else if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'){
+    //     if(userToken!="5"){
+    //         alert("无权限，请先登录！")
+    //     }else{next();}
+    // }
+    // else{
+    //     next();
+    // }
+
+    else {
         let userToken = localStorage.getItem('logintoken');
         console.log("Token为: " + userToken);
         if (userToken == null || userToken == '') {
@@ -19,32 +50,36 @@ const beforeEachGuard = (to, from, next) => {
         }
         // 普通用户
         else if(userToken === "5") {
-                if(to.path === '/InitUser'|| to.path === '/DeleteUser'|| to.path === '/ManagerRole'){
-                    alert("权限不足！!");
+                if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'
+                    || to.path === ''){
+                    alert("权限不足！");
                     next('/index');
                 }
             next();
         }
         // 赛事管理员
         else if (userToken === "4"){
-            if(to.path === '/InitUser'|| to.path === '/DeleteUser'|| to.path === '/DeleteUser'|| to.path === '/'){
-                alert("权限不足！!");
-                next('/index');
+            if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'
+                || to.path === ''){
+                alert("权限不足！");
+                next('/false');
             }
             next();
         }
         // 器材管理员
         else if (userToken === "3"){
-            if(to.path === '/InitUser'|| to.path === '/DeleteUser'|| to.path === '/DeleteUser'|| to.path === '/'){
-                alert("权限不足！!");
-                next('/index');
+            if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'
+                || to.path === ''){
+                alert("权限不足！");
+                next({ name: 'index' });
             }
             next();
         }
         // 场地管理员
         else if (userToken === "2"){
-            if(to.path === '/InitUser'|| to.path === '/DeleteUser'|| to.path === '/DeleteUser'|| to.path === '/'){
-                alert("权限不足！!");
+            if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'
+                || to.path === ''){
+                alert("权限不足！");
                 next('/index');
             }
             next();
@@ -78,36 +113,36 @@ const routes = [
         component: ()=>import('../views/HomeView.vue'),
         // 菜单
         children:[
-            {
-                path:'/InitUser',
-                name:'InitUser',
-                component:()=>import('../views/YHGL/InitUser.vue'),
-                meta:{
-                    requireAuth:true,visible:true,token:['0']
-                }
-            },
-            {
-                path:'/ManagerRole',
-                name:'ManagerRole',
-                component:()=>import('../views/YHGL/ManagerRole.vue')
-            },
-            {
-                path:'/ChangePw',
-                name:'ChangePw',
-                component:()=>import('../views/YHGL/ChangePw.vue')
-            },
-            {
-                path:'/SearchUser',
-                name:'SearchUser',
-                component:()=>import('../views/YHGL/SearchUser.vue')
-            },
-            {
-                path:'/DeleteUser',
-                name:'DeleteUser',
-                component:()=>import('../views/YHGL/DeleteUser.vue')
-            },
 
         ]
+    },
+    {
+        path:'/User/InitUser',
+        name:'InitUser',
+        component:()=>import('../views/YHGL/InitUser.vue'),
+        meta:{
+            requireAuth:true,visible:true,token:['0']
+        }
+    },
+    {
+        path:'/User/ManagerRole',
+        name:'ManagerRole',
+        component:()=>import('../views/YHGL/ManagerRole.vue')
+    },
+    {
+        path:'/User/ChangePw',
+        name:'ChangePw',
+        component:()=>import('../views/YHGL/ChangePw.vue')
+    },
+    {
+        path:'/User/SearchUser',
+        name:'SearchUser',
+        component:()=>import('../views/YHGL/SearchUser.vue')
+    },
+    {
+        path:'/User/DeleteUser',
+        name:'DeleteUser',
+        component:()=>import('../views/YHGL/DeleteUser.vue')
     },
     // {
     //     path:'/home',

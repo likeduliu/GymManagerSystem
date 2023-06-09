@@ -103,7 +103,7 @@ export default {
                   console.log(token)
                   console.log(data)
                   this.$router.push('/index');
-                  location.reload()
+
                 } else {
                   // 如果登录失败，显示错误提示信息
                   this.$message.error(response.data.message);
