@@ -18,7 +18,6 @@
           <el-button @click="resetForm">重置</el-button>
         </el-form-item>
       </el-form>
-    <router-view/>
   </div>
 </template>
 
@@ -36,87 +35,27 @@ label{
 }
 </style>
 
-<!--<script>-->
-<!--import axios from 'axios';-->
-<!--export default {-->
-<!--  data() {-->
-<!--    return {-->
-<!--      form: {-->
-<!--        userid:"",-->
-<!--        pw:"",-->
-<!--        // role:"",-->
-<!--        // token:""-->
-<!--      },-->
-<!--      rules:{-->
-<!--        userid:[-->
-<!--          {required:true,message:"学号/教职工号不能为空！",trigger:"blur"},-->
-<!--        ],-->
-<!--        pw:[-->
-<!--          {required:true,message:"密码不能为空！",trigger:"blur"}-->
-<!--        ]-->
-<!--      }-->
-<!--    }-->
-<!--  },-->
-<!--  methods: {-->
-<!--    Login() {-->
-<!--      axios.post('http://localhost:8081/user/login', this.form).then((resp) => {-->
-<!--        let data = resp.data-->
-<!--        if (data.success) {-->
-<!--          this.form = {};-->
-<!--          this.$message({-->
-<!--            message: '登录成功！',-->
-<!--            type: 'success',-->
-<!--          })-->
-<!--          this.$router.push('/index')-->
-<!--        }-->
-<!--      })-->
-<!--    },-->
-
-<!--    submitForm(formName) {-->
-<!--      this.$refs[formName].validate((valid) => {-->
-<!--        if (valid) {-->
-<!--          alert("submit!");-->
-<!--        } else {-->
-<!--          console.log("error submit!!");-->
-<!--          return false;-->
-<!--        }-->
-<!--      });-->
-<!--    },-->
-<!--    resetForm() {-->
-<!--      document.getElementById("loginform").reset();-->
-<!--    },-->
-<!--  },-->
-<!--  demo(){-->
-<!--    // 超级-->
-<!--    if (this.role === 'superadmin') {-->
-
-<!--      window.localStorage.setItem('roles','superadmin')-->
-<!--    // 场地-->
-<!--    } else if (this.role === 'cdadmin') {-->
-
-<!--      window.localStorage.setItem('roles','cdadmin')-->
-<!--    // 器材-->
-<!--    }  else if (this.role === 'qcadmin') {-->
-
-<!--      window.localStorage.setItem('roles','qcadmin')-->
-<!--    // 赛事-->
-<!--    }  else if (this.role === 'ssadmin') {-->
-
-<!--      window.localStorage.setItem('roles','ssadmin')-->
-<!--    // 赛事-->
-<!--    } else if (this.role === 'user') {-->
-
-<!--      window.localStorage.setItem('roles','user')-->
-
-<!--    }-->
-
-<!--  }-->
-<!--}-->
-<!--</script>-->
-
 <script>
 import axios from 'axios';
-import Vue from "vue";
+console.log(localStorage.getItem('logintoken'))
+const api = axios.create({
+  baseURL: '/api', // 基础URL  api接口
+
+});
+api.interceptors.request.use(
+    config => {
+      const token = localStorage.getItem('userid');
+      if (token) {
+        config.headers['token'] = token;
+      }
+      config.headers['Content-Type'] = 'application/json';
+      return config;
+    },
+    error => {
+      // 处理请求错误
+      return Promise.reject(error);
+    }
+);
 export default {
   data() {
     return {
@@ -163,8 +102,8 @@ export default {
                   const token=localStorage.getItem('logintoken')
                   console.log(token)
                   console.log(data)
-
                   this.$router.push('/index');
+
                 } else {
                   // 如果登录失败，显示错误提示信息
                   this.$message.error(response.data.message);
