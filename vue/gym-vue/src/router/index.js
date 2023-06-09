@@ -8,7 +8,7 @@ Vue.use(VueRouter)
 
 const beforeEachGuard = (to, from, next) => {
     if ( to.path === '/login' || to.path === '/') {
-        // 若是进入登录与注册页面，直接通过
+        // 若是进入登录页面，直接通过
         next();
     } else {
         let userToken = localStorage.getItem('logintoken');
@@ -16,13 +16,41 @@ const beforeEachGuard = (to, from, next) => {
         if (userToken == null || userToken == '') {
             alert("无权限，请先登录!");
             next('/');
-        } else {
-            if(userToken==="5"){
-                if(to.path === '/InitUser'){
-                    alert("无权限，请先登录!");
-                    next('/');
+        }
+        // 普通用户
+        else if(userToken === "5") {
+                if(to.path === '/InitUser'|| to.path === '/DeleteUser'|| to.path === '/ManagerRole'){
+                    alert("权限不足！!");
+                    next('/index');
                 }
+            next();
+        }
+        // 赛事管理员
+        else if (userToken === "4"){
+            if(to.path === '/InitUser'|| to.path === '/DeleteUser'|| to.path === '/DeleteUser'|| to.path === '/'){
+                alert("权限不足！!");
+                next('/index');
             }
+            next();
+        }
+        // 器材管理员
+        else if (userToken === "3"){
+            if(to.path === '/InitUser'|| to.path === '/DeleteUser'|| to.path === '/DeleteUser'|| to.path === '/'){
+                alert("权限不足！!");
+                next('/index');
+            }
+            next();
+        }
+        // 场地管理员
+        else if (userToken === "2"){
+            if(to.path === '/InitUser'|| to.path === '/DeleteUser'|| to.path === '/DeleteUser'|| to.path === '/'){
+                alert("权限不足！!");
+                next('/index');
+            }
+            next();
+        }
+        // 超级管理员
+        else if (userToken === "1"){
             next();
         }
     }

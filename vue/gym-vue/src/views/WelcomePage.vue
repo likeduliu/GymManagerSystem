@@ -20,8 +20,7 @@
 
 <style scoped>
 .el-form{
-  margin-top: 80px;
-  margin-left: 25%;
+
   text-align: center;
 }
 
