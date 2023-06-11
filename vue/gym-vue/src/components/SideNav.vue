@@ -57,10 +57,10 @@
           <span>器材管理</span>
         </template>
        <el-menu-item index="/equipment/All">全部器材</el-menu-item>
-        <el-menu-item index="/equipment/Add" v-if="parseInt(token)===1 || parseInt(token)===2">添加器材</el-menu-item>
-        <el-menu-item index="/equipment/Del" v-if="parseInt(token)===1 || parseInt(token)===2">删除器材</el-menu-item>
+        <el-menu-item index="/equipment/Add" v-if="parseInt(token)===1 || parseInt(token)===3">添加器材</el-menu-item>
+        <el-menu-item index="/equipment/Del" v-if="parseInt(token)===1 || parseInt(token)===3">删除器材</el-menu-item>
         <el-menu-item index="/equipment/Book">租用器材</el-menu-item>
-        <el-menu-item index="/equipment/Repair" v-if="parseInt(token)===1 || parseInt(token)===2">器材维护</el-menu-item>
+        <el-menu-item index="/equipment/Repair" v-if="parseInt(token)===1 || parseInt(token)===3">器材维护</el-menu-item>
         <el-menu-item index="/equipment/Recover">回收器材</el-menu-item>
         <el-menu-item index="/equipment/QueryRate">器材收费查询</el-menu-item>
         

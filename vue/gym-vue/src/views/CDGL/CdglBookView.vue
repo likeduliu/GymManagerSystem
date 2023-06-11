@@ -113,6 +113,8 @@
     methods: {
         //提交表单
         onSubmit(){
+                let userid=localStorage.getItem('userid')
+                
                 const starttime=moment(this.bookform.starttime,"HH:mm");
                 const endtime=moment(this.bookform.endtime,"HH:mm");
 

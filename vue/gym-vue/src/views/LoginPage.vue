@@ -102,7 +102,11 @@ export default {
                   const token=localStorage.getItem('logintoken')
                   console.log(token)
                   console.log(data)
-                  this.$router.push('/index');
+                  this.$router.push('/index').then(()=>{
+                    location.reload();
+                  });
+                  // this.$router.go('/index')
+                  
 
                 } else {
                   // 如果登录失败，显示错误提示信息
