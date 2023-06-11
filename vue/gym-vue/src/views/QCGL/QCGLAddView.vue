@@ -82,6 +82,7 @@
             }
             
         },
+        
         created() {
             var that = this
             axios.get("http://localhost:8080/equipment/").then(function (resp) {
