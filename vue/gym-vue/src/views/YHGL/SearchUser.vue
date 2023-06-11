@@ -72,7 +72,7 @@
           label="角色"
           prop="role">
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" >
         <template slot-scope="scope">
           <el-button
               size="mini"
@@ -113,6 +113,7 @@
 
 <script>
 import axios from "axios";
+import {forEach} from "core-js/stable/dom-collections";
 
 export default {
   data() {
@@ -134,6 +135,7 @@ export default {
           id:'',
           phone:'',
           address:'',
+          roleid:''
          }
       ]
     }
@@ -213,6 +215,15 @@ export default {
               .then(response => {
                 this.userdata=[];
                 this.userdata=response.data;
+                var role = this.userdata[1].roleID
+                console.log(role)
+                for( var i =0;i++;i<((this.userdata).getLength())){
+                  var role = this.userdata[i].roleID
+                  console.log(role)
+                  if(role === 1){
+                    this.prop.role = "超级管理员"
+                  }
+                }
                 console.log(this.userdata)
               })
               .catch(error => {

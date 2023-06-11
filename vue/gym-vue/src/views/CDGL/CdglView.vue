@@ -37,7 +37,7 @@
         },
         created() {
             var that = this
-            axios.get("http://http://10.159.84.123/:8082/field/").then(function (resp) {
+            axios.get("http://localhost:8082/field/").then(function (resp) {
                     that.fields = resp.data
                 }
             )
