@@ -96,8 +96,13 @@ export default {
                   // 将返回的用户数据存储到本地
                   let user = JSON.stringify(response.data.data)
                   let roleid = JSON.stringify(response.data.data.roleID)
+                  let userid = JSON.stringify(response.data.data.userID)
+                  let username = JSON.parse(response.data.data.name)
                   localStorage.setItem('loginuser',user)
+                  localStorage.setItem('loginname',username)
                   localStorage.setItem('logintoken',roleid)
+                  localStorage.setItem('loginuserid',userid)
+                console.log(username)
                   const data=localStorage.getItem('loginuser')
                   const token=localStorage.getItem('logintoken')
                   console.log(token)

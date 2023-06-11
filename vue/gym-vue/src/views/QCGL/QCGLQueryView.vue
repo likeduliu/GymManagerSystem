@@ -3,6 +3,7 @@
         
         <el-container>
             <el-main>
+               
                 <el-table :data="equipments" >
                      <el-table-column prop="equipmentid" label="器材编号" width="140">                       
                     </el-table-column>
@@ -28,7 +29,8 @@
         data() {
             return {
                 equipments: []
-                    
+               
+                  
             }
         },
         created() {
