@@ -12,34 +12,6 @@ const beforeEachGuard = (to, from, next) => {
         // 若是进入登录页面，直接通过
         next();
     }
-    // else if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'){
-    //     if(userToken!="1"){
-    //         alert("无权限，请先登录！")
-    //     }else{next();}
-    // }
-    // else if(to.path === '/field/Add'|| to.path === '/field/Del'|| to.path === '/field/Notice'|| to.path === '/User/SearchUser'){
-    //     if(userToken!="1"||userToken!="2"){
-    //         alert("无权限，请先登录！")
-    //     }else{next();}
-    // }
-    // else if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'){
-    //     if(userToken!="1"||userToken!="3"){
-    //         alert("无权限，请先登录！")
-    //     }else{next();}
-    // }
-    // else if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'){
-    //     if(userToken!="1"||userToken!="4"){
-    //         alert("无权限，请先登录！")
-    //     }else{next();}
-    // }
-    // else if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'){
-    //     if(userToken!="5"){
-    //         alert("无权限，请先登录！")
-    //     }else{next();}
-    // }
-    // else{
-    //     next();
-    // }
 
     else {
         let userToken = localStorage.getItem('logintoken');
@@ -77,10 +49,10 @@ const beforeEachGuard = (to, from, next) => {
         }
         // 场地管理员
         else if (userToken === "2"){
-            if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'
-                || to.path === ''){
-                alert("权限不足！");
-                next('/index');
+                    if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'
+                        || to.path === ''){
+                        alert("权限不足！");
+                        next('/index');
             }
             next();
         }
