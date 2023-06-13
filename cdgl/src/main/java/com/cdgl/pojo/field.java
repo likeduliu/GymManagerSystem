@@ -15,7 +15,7 @@ public class field {
     private Date starttime;
     private Date endtime;
     private Date reservation_date;
-    private String bookusername;
+    private String UserID;
     private String location;
 
 

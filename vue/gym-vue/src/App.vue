@@ -27,9 +27,10 @@
     <!--    主体-->
     <div style="display: flex">
       <!--      侧边导航栏-->
-      <SideNav />
+      <SideNav/>
       <!--      主体-->
       <router-view style="flex: 1"/>
+    
     </div>
   </div>
 </template>
@@ -57,7 +58,8 @@ export default {
       localStorage.clear();
       this.user_name="";
       this.$router.push("/login")
-      window.location.reload()
+      window.location.reload();
+      
     },
   },
   updated() {

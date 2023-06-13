@@ -3,9 +3,9 @@
         <el-container>
             <el-main>
                     <el-form ref="bookform" :model="bookform" label-width="110px" size="mini">
-                        <el-form-item label="预约者姓名" prop="bookusername">
+                        <el-form-item label="预约者姓名" prop="UserID">
                             <el-col :span="4">
-                            <el-input v-model="bookform.bookusername" ></el-input>
+                            <el-input v-model="bookform.UserID" ></el-input>
                             </el-col>
                         </el-form-item>
                         <el-form-item label="预约日期" prop="reservation_date" >
@@ -90,7 +90,7 @@
           reservation_date:'',
           starttime:'',
           endtime:'',
-          bookusername:'',
+          UserID:'',
           fieldid:'',
           fieldName:'',
           kind:'',
@@ -113,6 +113,8 @@
     methods: {
         //提交表单
         onSubmit(){
+                let userid=localStorage.getItem('userid')
+                
                 const starttime=moment(this.bookform.starttime,"HH:mm");
                 const endtime=moment(this.bookform.endtime,"HH:mm");
 
@@ -123,7 +125,7 @@
                 .then(response => { //更新数据
 
                     this.updated()
-                    console.log(response.data)
+                    console.log(this.bookform.UserID)
                     if (response.data===false) {
                         alert("很抱歉，您选择的时间和别人冲突了")
                     }

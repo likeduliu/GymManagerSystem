@@ -32,7 +32,7 @@
     </insert>
 <!--    添加预约信息-->
     <insert id="BookField1" parameterType="com.cdgl.pojo.reservations">
-        INSERT INTO `reservations` (`fieldid`,`reservation_date`,`starttime`,`endtime`,`hour`) VALUES (#{fieldid},#{reservation_date},#{starttime},#{endtime},#{hour});
+        INSERT INTO `reservations` (`fieldid`,`reservation_date`,`starttime`,`endtime`,`hour`,`UserID`) VALUES (#{fieldid},#{reservation_date},#{starttime},#{endtime},#{hour},#{UserID});
     </insert>
 <!--    预约场地-->
 
@@ -44,7 +44,8 @@
         OR (starttime = #{starttime} AND endtime &lt; #{endtime})
         OR (starttime = #{starttime} AND endtime &gt; #{endtime})
         OR (endtime = #{endtime} AND starttime &gt; #{starttime})
-        OR (endtime = #{endtime} AND starttime &gt; #{starttime}));
+        OR (endtime = #{endtime} AND starttime &gt; #{starttime})
+        OR (endtime = #{endtime} AND starttime = #{starttime}));
     </select>
 <!--    日期检查-->
     <select id="FieldBookCheckDate" parameterType="com.cdgl.pojo.reservations" resultType="com.cdgl.pojo.reservations">

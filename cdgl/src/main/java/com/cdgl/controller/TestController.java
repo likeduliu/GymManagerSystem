@@ -72,6 +72,7 @@ public class TestController {
         return fieldservice.unbook1();
 //        List<reservations> coasts1=fieldMapper.unbook1();
 //        return coasts1;
+
     }
 
 
@@ -133,6 +134,7 @@ public class TestController {
         boolean isTimeEmpty=TimeCheck.isEmpty();
         boolean isDateEmpty=DateCheck.isEmpty();
         boolean isFieldEmpty=FieldEmpty.isEmpty();
+        System.out.println(reservation.getUserID());
 //        System.out.println(isDateEmpty);
 //        System.out.println(isTimeEmpty);
 //        System.out.println(TimeCheck);

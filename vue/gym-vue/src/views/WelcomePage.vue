@@ -1,9 +1,12 @@
 <script setup>
+import SideNav from '@/components/SideNav.vue';
+
 
 </script>
 
 <template>
   <div>
+
 
     <el-form ref="form" :model="form" label-width="150px">
       <el-form-item><img src="../static/pic/校徽.png" width="200px" ></el-form-item>
@@ -40,19 +43,8 @@ label{
 </style>
 
 <script>
-// export default {
-//   data() {
-//     return {
-//       form: {
-//         userid:'',
-//         pw:''
-//       }
-//     }
-//   },
-//   methods: {
-//     onSubmit() {
-//       console.log('submit!');
-//     }
-//   }
-// }
+export default {
+    components: { SideNav }
+}
+
 </script>
