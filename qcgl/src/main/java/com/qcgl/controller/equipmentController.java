@@ -49,13 +49,24 @@ public class equipmentController {
 
 
 
-    //查询返还的器材
+    //查询要返还的器材
     @GetMapping("/Recover")
-    public List<equipmentrecover> QueryRecover() {
-        List<equipmentrecover> allrecover = equipmentMapper.QueryRecover();
-        return allrecover;
+    public List<equipmentbook> QueryRecover() {
+        List<equipmentbook> allrecover = equipmentMapper.QueryRecover();
 
+//        System.out.println(userID);
+        return allrecover;
     }
+    //删除已归还的租用记录
+    @DeleteMapping("/Recover/{bookid}")
+    public void delbook(@PathVariable Integer bookid){
+        equipmentMapper.Delbook(bookid);
+        System.out.println(bookid);
+    }
+
+
+
+
     //查询维修的器材
     @GetMapping("/Repair")
     public List<equipmentrepair> QueryRepair() {

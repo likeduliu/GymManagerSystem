@@ -53,7 +53,7 @@ const beforeEachGuard = (to, from, next) => {
                 if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'
                     || to.path === ''||to.path==='/field/Add'||to.path==='/field/Del'||to.path==='/field/Notice'
                     ||to.path==='/equipment/Add'||to.path==='/equipment/Del'||to.path==='/equipment/Repair'
-                    ||to.path==='/competition/creation'||to.path==='/competition/cancellation'){
+                    ||to.path==='/competition/creation'||to.path==='/competition/cancellation'||to.path==='/equipment/Recover'){
                     alert("权限不足！");
                     next('/index');
                 }
@@ -63,7 +63,7 @@ const beforeEachGuard = (to, from, next) => {
         else if (userToken === "4"){
             if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'
                 || to.path === ''||to.path==='/field/Add'||to.path==='/field/Del'||to.path==='/field/Notice'
-                ||to.path==='/equipment/Add'||to.path==='/equipment/Del'||to.path==='/equipment/Repair'){
+                ||to.path==='/equipment/Add'||to.path==='/equipment/Del'||to.path==='/equipment/Repair'||to.path==='/equipment/Recover'){
                 alert("权限不足！");
                 next('/false');
             }
@@ -83,7 +83,7 @@ const beforeEachGuard = (to, from, next) => {
         else if (userToken === "2"){
             if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'
                 || to.path === ''||to.path==='/equipment/Add'||to.path==='/equipment/Del'||to.path==='/equipment/Repair'
-                ||to.path==='/competition/creation'||to.path==='/competition/cancellation'){
+                ||to.path==='/competition/creation'||to.path==='/competition/cancellation'||to.path==='/equipment/Recover'){
                 alert("权限不足！");
                 next('/index');
             }

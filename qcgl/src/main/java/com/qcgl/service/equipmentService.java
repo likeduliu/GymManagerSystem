@@ -25,9 +25,13 @@ public interface equipmentService {
     @Select("SELECT * from equipmentbook where UserID=#{userID}")
     List<equipmentbook> QueryBook(String userID);
 
-    //查询全部返还的器材
-    @Select("SELECT * from equipmentrecover")
-    List<equipmentrecover> QueryRecover();
+    //查询全部租用的器材
+    @Select("SELECT * from equipmentbook ")
+    List<equipmentbook> QueryRecover();
+    //已归还器材删除租用记录
+    @Delete("Delete from equipmentbook where bookid=#{bookid} ")
+     void Delbook();
+
     //查询全部维修的器材
     @Select("Select * from equipmentrepair")
     List<equipmentrepair> QueryRepair();
