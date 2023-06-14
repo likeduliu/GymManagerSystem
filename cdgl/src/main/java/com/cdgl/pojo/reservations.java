@@ -10,7 +10,7 @@ public class reservations {
     Date reservation_date;
     String starttime;
     String endtime;
-    String UserID;
+    String username;
     String hour;
 
 }

@@ -88,6 +88,10 @@
                 .then(response => { 
                     //更新数据
                     this.updated()
+                    this.$message({
+                      message: '添加成功',
+                      type: 'success'
+                    });
                     
                 })
                 .catch(error => {

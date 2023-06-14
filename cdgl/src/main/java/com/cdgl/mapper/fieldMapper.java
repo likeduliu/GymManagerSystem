@@ -50,6 +50,11 @@ public interface fieldMapper {
 
     public void canlbookbydel(Integer fiedlid);
 
+    //判断数量
+    public int bookNum(reservations reservations);
+
+    public List<reservations> FieldExist(reservations reservations);
+
 
 
 

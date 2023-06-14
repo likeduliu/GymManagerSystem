@@ -8,8 +8,8 @@
                     </el-table-column>
                     <el-table-column prop="fieldid" label="场地编号" width="100">
                     </el-table-column>
-                    <!-- <el-table-column prop="UserID" label="预约人" width="120">
-                    </el-table-column> -->
+                    <el-table-column prop="username" label="预约人" width="120">
+                    </el-table-column>
                     <el-table-column  label="预约日期" width="120">
                       <template slot-scope="scope1">
                                             <div>{{ scope1.row.reservation_date | formatDate }}</div>

@@ -35,15 +35,49 @@
         },
         
         methods:{
-        del(fieldid){           
-            axios.delete("http://localhost:8082/field/Del/"+fieldid)
-            .then(response => {
-                    this.updated()
-                })
-                .catch(error => {
-          
-                console.error(error);
-                });
+        del(fieldid){ 
+
+                const that=this;
+            axios.delete("http://localhost:8082/field/reservationExits/"+fieldid)
+            .then(function(resp){
+                if (resp.data===true){
+                    axios.delete("http://localhost:8082/field/Del/"+fieldid)
+                    .then(response => {
+                        that.updated()
+                        that.$message({
+                                  message: '删除成功',
+                                  type: 'success'
+                                });
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+                }
+                else if(resp.data===false){
+                    that.$confirm('您要删除的场地还有预约记录, 是否继续?', '提示', {
+                      confirmButtonText: '确定',
+                      cancelButtonText: '取消',
+                      type: 'warning'
+                    })
+                    .then(() => {
+                        axios.delete("http://localhost:8082/field/Del/"+fieldid)
+                            .then(response => {
+                                that.updated()
+                                that.$message({
+                                          message: '删除成功',
+                                          type: 'success'
+                                        });
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                      console.log('用户点击了确认按钮');
+                    })
+                    .catch(() => {
+                      console.log('用户点击了取消按钮或关闭对话框');
+                    });   
+                }
+            })
             
         },
         updated(){
