@@ -46,6 +46,7 @@ public interface equipmentService {
      //租用器材
       @Insert("INSERT INTO `equipmentbook` (`equipmentid`, `bookusername`,`bookamount`,`bookstarttime`,`bookendtime`,`UserID`) VALUES (#{equipmentid}, #{bookusername},#{bookamount}, #{bookstarttime},#{bookendtime},#{UserID});")
       void Bookequipment();
+
       //返还器材
       @Insert("INSERT INTO `equipmentrecover` (`equipmentid`, `recoverusername`,`recoveramount`) VALUES (#{equipmentid}, #{recoverusername},#{recoveramount});")
        void Recoverequipment();

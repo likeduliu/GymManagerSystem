@@ -53,6 +53,8 @@ public interface equipmentMapper {
     public void Delequipment(Integer equipmentid);
     @Update("ALTER TABLE equipment AUTO_INCREMENT = #{equipmentid}")
     public void Updateequipment(Integer equipmentid);
+    @Select("SELECT amount from equipment where equipmentid=#{equipmentid}")
+    public String EquNum(Integer equipmentid);
 
 
 

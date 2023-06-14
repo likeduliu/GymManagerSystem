@@ -5,6 +5,7 @@ import com.qcgl.pojo.equipment;
 import com.qcgl.pojo.equipmentbook;
 import com.qcgl.pojo.equipmentrecover;
 import com.qcgl.pojo.equipmentrepair;
+import com.sun.javaws.IconUtil;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -83,10 +84,24 @@ public class equipmentController {
     }
     //租用器材
         @PostMapping("/Book")
-        public void bookequipment(@RequestBody equipmentbook equipmentbook){
+        public boolean bookequipment(@RequestBody equipmentbook equipmentbook){
 //        System.out.println(equipmentbook);
-            equipmentMapper.Bookequipment(equipmentbook);
+            Integer eid= equipmentbook.getEquipmentid();
+            String bookNum =  equipmentMapper.EquNum(eid);
+            String booknum = equipmentbook.getBookamount();
+            int Amount=Integer.valueOf(bookNum);
+            int bookAmount=Integer.valueOf(booknum);
+//            equipmentMapper.Bookequipment(equipmentbook);
 
+            // 获取租用器材信息
+            if(Amount>=bookAmount){
+                equipmentMapper.Bookequipment(equipmentbook);
+                System.out.println(true);
+                return true;
+            }else {
+                System.out.println(false);
+                return false;
+            }
 
     }
 
