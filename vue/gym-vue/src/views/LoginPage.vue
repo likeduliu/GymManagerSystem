@@ -97,7 +97,7 @@ export default {
                   let user = JSON.stringify(response.data.data)
                   let roleid = JSON.stringify(response.data.data.roleID)
                   let userid = JSON.stringify(response.data.data.userID)
-                  let username = JSON.parse(response.data.data.name)
+                  let username = JSON.stringify(response.data.data.name)
                   localStorage.setItem('loginuser',user)
                   localStorage.setItem('loginname',username)
                   localStorage.setItem('logintoken',roleid)
