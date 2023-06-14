@@ -24,11 +24,13 @@ public interface equipmentMapper {
     List<equipmentbook> QueryBook(String userID);
 
 
+    //查询全部要返还的器材
+    @Select("Select * from equipmentbook ")
+    List<equipmentbook> QueryRecover();
+    //已归还器材删除租用记录
+    @Delete("Delete from equipmentbook where bookid=#{bookid} ")
+    public void Delbook(Integer bookid);
 
-
-    //查询全部返还的器材
-    @Select("Select * from equipmentrecover")
-    List<equipmentrecover> QueryRecover();
     //查询全部维修的器材
     @Select("Select * from equipmentrepair")
     List<equipmentrepair> QueryRepair();
@@ -51,6 +53,8 @@ public interface equipmentMapper {
     public void Delequipment(Integer equipmentid);
     @Update("ALTER TABLE equipment AUTO_INCREMENT = #{equipmentid}")
     public void Updateequipment(Integer equipmentid);
+    @Select("SELECT amount from equipment where equipmentid=#{equipmentid}")
+    public String EquNum(Integer equipmentid);
 
 
 

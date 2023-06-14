@@ -91,15 +91,7 @@
                 // console.log(this.book.userID)
                 // console.log(username)
                 // console.log(userid)
-                // const equipmentbook={
-                //     equipmentid:this.equipmentid,
-                //     bookusername : this.book.bookusername,
-                //     bookamount:this.bookamount,
-                //     bookstarttime:this.bookstarttime,
-                //     bookendtime:this.bookendtime,
-                //     UserID:this.book.UserID,
-                   
-                // }
+               
                 console.log(this.book)
                 axios.post("http://localhost:8080/equipment/Book",this.book )
                 .then(response => { //更新数据
