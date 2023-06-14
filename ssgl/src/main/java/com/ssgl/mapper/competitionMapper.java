@@ -23,4 +23,6 @@ public interface competitionMapper {
     //创办比赛
     @Insert("INSERT INTO `competition` (`competitionName`, `place`,`date`,`starttime`,`endtime`) VALUES (#{competitionName}, #{place}, #{date},#{starttime},#{endtime});")
     public void Addcompetition(competition competition);
+
+    //Test
 }
