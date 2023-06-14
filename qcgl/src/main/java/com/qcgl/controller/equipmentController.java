@@ -27,27 +27,46 @@ public class equipmentController {
 
     }
 
-    //查询全部器材收费标准
-    @GetMapping("/QueryRate")
-    public List<equipment> QueryRate() {
-        List<equipment> allrate = equipmentMapper.QueryRate();
-        return allrate;
 
+        //查询器材收费标准
+        @GetMapping("/QueryRate/{equipmentid}")
+        public List<equipment> QueryRate(@PathVariable Integer equipmentid) {
+            List<equipment> allrate = equipmentMapper.QueryRate(equipmentid);
+            System.out.println(equipmentid);
+            return allrate;
     }
+
+
+
     //查询租用的器材
-    @GetMapping("/Book")
-    public List<equipmentbook> QueryBook() {
-        List<equipmentbook> allbook = equipmentMapper.QueryBook();
+    @GetMapping("/Book/{userID}")
+    public List<equipmentbook> QueryBook(@PathVariable String userID) {
+        List<equipmentbook> allbook = equipmentMapper.QueryBook(userID);
+
+//        System.out.println(userID);
         return allbook;
-
     }
-    //查询返还的器材
+
+
+
+    //查询要返还的器材
     @GetMapping("/Recover")
-    public List<equipmentrecover> QueryRecover() {
-        List<equipmentrecover> allrecover = equipmentMapper.QueryRecover();
-        return allrecover;
+    public List<equipmentbook> QueryRecover() {
+        List<equipmentbook> allrecover = equipmentMapper.QueryRecover();
 
+//        System.out.println(userID);
+        return allrecover;
     }
+    //删除已归还的租用记录
+    @DeleteMapping("/Recover/{bookid}")
+    public void delbook(@PathVariable Integer bookid){
+        equipmentMapper.Delbook(bookid);
+        System.out.println(bookid);
+    }
+
+
+
+
     //查询维修的器材
     @GetMapping("/Repair")
     public List<equipmentrepair> QueryRepair() {
@@ -63,11 +82,14 @@ public class equipmentController {
 
     }
     //租用器材
-    @PostMapping("/Book")
-    public void bookequipment(@RequestBody equipmentbook equipmentbook){
-        equipmentMapper.Bookequipment(equipmentbook);
+        @PostMapping("/Book")
+        public void bookequipment(@RequestBody equipmentbook equipmentbook){
+//        System.out.println(equipmentbook);
+            equipmentMapper.Bookequipment(equipmentbook);
+
 
     }
+
     //返还器材
     @PostMapping("/Recover")
     public void recoverequipment(@RequestBody equipmentrecover equipmentrecover){

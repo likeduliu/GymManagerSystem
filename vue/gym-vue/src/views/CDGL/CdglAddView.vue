@@ -21,6 +21,9 @@
                             <el-select  v-model="newfield.kind" placeholder="场地种类">
                             <el-option label="篮球场" value="篮球场"></el-option>
                             <el-option label="羽毛球场" value="羽毛球场"></el-option>
+                            <el-option label="乒乓球场" value="乒乓球场"></el-option>
+                            <el-option label="足球场" value="足球场"></el-option>
+                            <el-option label="网球场" value="网球场"></el-option>
                             </el-select>
                             </el-form-item>
                             <el-form-item label="场地位置" style="margin-left: 0%;">
@@ -85,6 +88,10 @@
                 .then(response => { 
                     //更新数据
                     this.updated()
+                    this.$message({
+                      message: '添加成功',
+                      type: 'success'
+                    });
                     
                 })
                 .catch(error => {

@@ -1,7 +1,7 @@
 package com.qcgl.pojo;
-import lombok.Data;
+        import lombok.Data;
 
-import java.util.Date;
+        import java.util.Date;
 
 
 @Data
@@ -14,7 +14,7 @@ public class equipmentbook {
     private Date bookstarttime;
     private Date bookendtime;
     private String bookamount;
-
+    private String UserID;
 
 
 

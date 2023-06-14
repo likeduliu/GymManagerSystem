@@ -4,6 +4,99 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+//路由全局前置守卫
+
+const beforeEachGuard = (to, from, next) => {
+    let userToken = localStorage.getItem('logintoken');
+    if ( to.path === '/login' || to.path === '/') {
+        // 若是进入登录页面，直接通过
+        next();
+    }
+    // else if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'){
+    //     if(userToken!="1"){
+    //         alert("无权限，请先登录！")
+    //     }else{next();}
+    // }
+    // else if(to.path === '/field/Add'|| to.path === '/field/Del'|| to.path === '/field/Notice'|| to.path === '/User/SearchUser'){
+    //     if(userToken!="1"||userToken!="2"){
+    //         alert("无权限，请先登录！")
+    //     }else{next();}
+    // }
+    // else if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'){
+    //     if(userToken!="1"||userToken!="3"){
+    //         alert("无权限，请先登录！")
+    //     }else{next();}
+    // }
+    // else if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'){
+    //     if(userToken!="1"||userToken!="4"){
+    //         alert("无权限，请先登录！")
+    //     }else{next();}
+    // }
+    // else if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'){
+    //     if(userToken!="5"){
+    //         alert("无权限，请先登录！")
+    //     }else{next();}
+    // }
+    // else{
+    //     next();
+    // }
+
+    else {
+        let userToken = localStorage.getItem('logintoken');
+        console.log("Token为: " + userToken);
+        if (userToken == null || userToken == '') {
+            alert("无权限，请先登录!");
+            next('/');
+        }
+        // 普通用户
+        else if(userToken === "5") {
+                if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'
+                    || to.path === ''||to.path==='/field/Add'||to.path==='/field/Del'||to.path==='/field/Notice'
+                    ||to.path==='/equipment/Add'||to.path==='/equipment/Del'||to.path==='/equipment/Repair'
+                    ||to.path==='/competition/creation'||to.path==='/competition/cancellation'||to.path==='/equipment/Recover'){
+                    alert("权限不足！");
+                    next('/index');
+                }
+            next();
+        }
+        // 赛事管理员
+        else if (userToken === "4"){
+            if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'
+                || to.path === ''||to.path==='/field/Add'||to.path==='/field/Del'||to.path==='/field/Notice'
+                ||to.path==='/equipment/Add'||to.path==='/equipment/Del'||to.path==='/equipment/Repair'||to.path==='/equipment/Recover'){
+                alert("权限不足！");
+                next('/false');
+            }
+            next();
+        }
+        // 器材管理员
+        else if (userToken === "3"){
+            if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'
+                || to.path === ''||to.path==='/field/Add'||to.path==='/field/Del'||to.path==='/field/Notice'
+                ||to.path==='/competition/creation'||to.path==='/competition/cancellation'){
+                alert("权限不足！");
+                next({ name: 'index' });
+            }
+            next();
+        }
+        // 场地管理员
+        else if (userToken === "2"){
+            if(to.path === '/User/InitUser'|| to.path === '/User/DeleteUser'|| to.path === '/User/ManagerRole'|| to.path === '/User/SearchUser'
+                || to.path === ''||to.path==='/equipment/Add'||to.path==='/equipment/Del'||to.path==='/equipment/Repair'
+                ||to.path==='/competition/creation'||to.path==='/competition/cancellation'||to.path==='/equipment/Recover'){
+                alert("权限不足！");
+                next('/index');
+            }
+            next();
+        }
+        // 超级管理员
+        else if (userToken === "1"){
+            next();
+        }
+    }
+};
+
+
 const routes = [
     {
         // 登陆页面
@@ -16,6 +109,8 @@ const routes = [
         path:'/index',
         name:'index',
         component:()=>import('../views/WelcomePage.vue'),
+        
+        
     },
     {
         // 主页面
@@ -25,36 +120,36 @@ const routes = [
         component: ()=>import('../views/HomeView.vue'),
         // 菜单
         children:[
-            {
-                path:'/InitUser',
-                name:'InitUser',
-                component:()=>import('../views/YHGL/InitUser.vue'),
-                meta:{
-                    requireAuth:true,visible:true,token:['0']
-                }
-            },
-            {
-                path:'/ManagerRole',
-                name:'ManagerRole',
-                component:()=>import('../views/YHGL/ManagerRole.vue')
-            },
-            {
-                path:'/ChangePw',
-                name:'ChangePw',
-                component:()=>import('../views/YHGL/ChangePw.vue')
-            },
-            {
-                path:'/SearchUser',
-                name:'SearchUser',
-                component:()=>import('../views/YHGL/SearchUser.vue')
-            },
-            {
-                path:'/DeleteUser',
-                name:'DeleteUser',
-                component:()=>import('../views/YHGL/DeleteUser.vue')
-            },
 
         ]
+    },
+    {
+        path:'/User/InitUser',
+        name:'InitUser',
+        component:()=>import('../views/YHGL/InitUser.vue'),
+        meta:{
+            requireAuth:true,visible:true,token:['0']
+        }
+    },
+    {
+        path:'/User/ManagerRole',
+        name:'ManagerRole',
+        component:()=>import('../views/YHGL/ManagerRole.vue')
+    },
+    {
+        path:'/User/ChangePw',
+        name:'ChangePw',
+        component:()=>import('../views/YHGL/ChangePw.vue')
+    },
+    {
+        path:'/User/SearchUser',
+        name:'SearchUser',
+        component:()=>import('../views/YHGL/SearchUser.vue')
+    },
+    {
+        path:'/User/DeleteUser',
+        name:'DeleteUser',
+        component:()=>import('../views/YHGL/DeleteUser.vue')
     },
     // {
     //     path:'/home',
@@ -98,36 +193,31 @@ const routes = [
         name: 'notice',
         component: () => import( '../views/CDGL/CdglNoticeView.vue')
     },
-    {
-        path: '/field/QueryWeek',
-        name: 'aqueryweek',
-        component: () => import( '../views/CDGL/CdglQueryWeekView.vue')
-    },
-    {
-        path: '/field/Rate',
-        name: 'rate',
-        component: () => import( '../views/CDGL/CdglRateView.vue')
-    },
-    {
-        path: '/field/Reserve',
-        name: 'reserve',
-        component: () => import( '../views/CDGL/CdglReserveView.vue')
-    },
-    {
-        path: '/field/UpdateBook',
-        name: 'updateBook',
-        component: () => import( '../views/CDGL/CdglUpdateBookView.vue')
-    },
+    // {
+    //     path: '/field/QueryWeek',
+    //     name: 'aqueryweek',
+    //     component: () => import( '../views/CDGL/CdglQueryWeekView.vue')
+    // },
+    // {
+    //     path: '/field/Rate',
+    //     name: 'rate',
+    //     component: () => import( '../views/CDGL/CdglRateView.vue')
+    // },
+    // {
+    //     path: '/field/Reserve',
+    //     name: 'reserve',
+    //     component: () => import( '../views/CDGL/CdglReserveView.vue')
+    // },
+    // {
+    //     path: '/field/UpdateBook',
+    //     name: 'updateBook',
+    //     component: () => import( '../views/CDGL/CdglUpdateBookView.vue')
+    // },
     {
         path: '/field/Use',
         name: 'use',
         component: () => import( '../views/CDGL/CdglUseView.vue')
     },
-    {
-        path: '/InitUser',
-        name: 'InitUser',
-        component: () => import( '../views/CDGL/CdglUseView.vue')
-    } ,
     {
         path: '/equipment/All',
         name: 'all',
@@ -163,7 +253,21 @@ const routes = [
         name: 'repair',
         component: () => import( '../views/QCGL/QCGLRepairView.vue')
     },
-    
+    {
+        path: '/competition/information',
+        name: 'info',
+        component: () => import( '../views/SSGL/informationView.vue')
+    },
+    {
+        path: '/competition/creation',
+        name: 'creation',
+        component: () => import( '../views/SSGL/creationView.vue')
+    },
+    {
+        path: '/competition/cancellation',
+        name: 'cancellation',
+        component: () => import( '../views/SSGL/cancellationView.vue')
+    },
 
 
 
@@ -171,8 +275,10 @@ const routes = [
 
 ]
 
+
 const router = new VueRouter({
     routes
 })
+router.beforeEach(beforeEachGuard);
 
 export default router

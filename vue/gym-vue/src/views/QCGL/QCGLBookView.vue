@@ -10,28 +10,25 @@
                              
                             </el-form-item>
                             <el-form-item label="租用人姓名">
-                            <el-input  v-model="book.bookusername" placeholder="租用人姓名"></el-input>
+                            <el-input  v-model="book.bookusername" placeholder="租用人姓名" :disabled="true"></el-input>
                             </el-form-item>
-                           <el-form-item label="租用器材数量">
-                            <el-input  v-model="book.bookamount" placeholder="租用器材数量"></el-input>
-                            </el-form-item>
-
-                           
+                           <!-- <el-form-item label="租用器材数量">
+                            <el-input  v-model="book.bookamount" placeholder="租用器材数量" ></el-input>
+                            </el-form-item> -->
+                            <el-form-item label="租用器材数量">
+                            <el-input-number v-model="book.bookamount" @change="handleChange" :min="1" :max="10" label="租用器材数量"></el-input-number>
+                            </el-form-item> 
 
                              <el-form-item label="租用开始日期" prop="bookstarttime">
                             <el-col :span="15">
                             <el-date-picker type="date" placeholder="选择日期"  v-model="book.bookstarttime" style="width: 100%;"></el-date-picker>
-                            <!-- <template slot-scope="scope1">
-                            <div>{{ scope1.row.book.bookstarttime | formatDate }}</div>
-                            </template> -->
+                           
                             </el-col>
                         </el-form-item>
                         <el-form-item label="租用结束日期" prop="bookendtime">
                             <el-col :span="15">
                             <el-date-picker  type="date" placeholder="选择日期"  v-model="book.bookendtime" style="width: 100%;"></el-date-picker>
-                        <!-- <template slot-scope="scope1">
-                            <div>{{ scope1.row.book.bookendtime | formatDate }}</div>
-                            </template> -->
+                        
                         </el-col>
                         </el-form-item>
                             <el-form-item>
@@ -72,11 +69,12 @@
             return {
                 equipmentbooks: [],
                 book:{
-                    equipmenid:'',
+                    equipmentid:'',
                     bookusername:'',
                     bookamount:'',
                     bookstarttime:'',
                     bookendtime:'',
+                    userID:'',
                     
                 }
             }
@@ -85,48 +83,61 @@
 
         methods:{
             onSubmit(){
-                const equipmentbook={
-                    equipmenid:this.equipmenid,
-                    bookusername:this.bookusername,
-                    bookamount:this.bookamount,
-                    bookstarttime:this.bookstarttime,
-                    bookendtime:this.bookendtime,
-                   
-                }
-                axios.post("http://localhost:8080/equipment/Book",this.book)
+                const username = String(localStorage.getItem('loginname'))
+                const userid = localStorage.getItem('loginuserid')
+                const obj = JSON.parse(userid)
+                this.book.userID=obj
+                console.log(obj)
+                // console.log(this.book.userID)
+                // console.log(username)
+                // console.log(userid)
+               
+                console.log(this.book)
+                axios.post("http://localhost:8080/equipment/Book",this.book )
                 .then(response => { //更新数据
-                    this.updatedate()
+                    this.updated()
+                  
                 })
                 .catch(error => {
           
                 console.error(error);
-                });                     
-            }
+                });  
+                                   
+            },
+              updated(userID){
+            var that = this
+            const username = localStorage.getItem('loginname')
+            this.book.bookusername = username
+            const userid = localStorage.getItem('loginuserid')
+                const obj = JSON.parse(userid)
+                userID=obj
+            axios.get("http://localhost:8080/equipment/Book/"+userID).then(function (resp) {
+                    that.equipmentbooks = resp.data
+                }
+            )
+
+        },
+        handleChange(value) {
+        console.log(value);
+      }
+
+            
             
         },
-        created() {
+        
+        created(userID) {
             var that = this
-            axios.get("http://localhost:8080/equipment/Book").then(function (resp) {
+            const username = localStorage.getItem('loginname')
+            this.book.bookusername = username
+            const userid = localStorage.getItem('loginuserid')
+                const obj = JSON.parse(userid)
+                userID=obj
+            axios.get("http://localhost:8080/equipment/Book/"+userID).then(function (resp) {
                     that.equipmentbooks = resp.data
                 }
             )
         },
-         updated(){
-            var that = this
-            axios.get("http://localhost:8080/equipment/Book").then(function (resp) {
-                    that.equipmentbooks = resp.data
-                }
-            )
-        },
-        // filters: {
-        //         formatDate(value) {
-        //         const dateObject = new Date(value);
-        //         const year = dateObject.getFullYear();
-        //         const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
-        //         const day = dateObject.getDate().toString().padStart(2, '0');
-        //         return `${year}-${month}-${day}`;
-        //         }
-        //         },
+       
         
 
 

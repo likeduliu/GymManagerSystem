@@ -57,4 +57,8 @@ public interface fieldService {
     //添加公告
     public void addFieldNotice(fieldnotice fieldnotice);
     public void canlbookbydel(Integer fieldid);
+//    数量检测
+    public int bookNum(reservations reservations);
+//    场地存在检测
+    public List<reservations> FieldExist(reservations reservations);
 }

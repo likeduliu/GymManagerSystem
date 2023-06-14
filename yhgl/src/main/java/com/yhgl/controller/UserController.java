@@ -56,8 +56,10 @@ public class UserController {
         inituser.setPassword("123456");
 
         User u = userService.InitUser(inituser);
+
         if (u != null) {
-            return ResultVOUtil.success('0');
+            int roleid =u.getRoleID();
+            return ResultVOUtil.success('0'+roleid);
         }else {
         return ResultVOUtil.error(ResultEnum.INIT_FAIL);
         }
@@ -106,6 +108,10 @@ public class UserController {
         System.out.println(userid);
         System.out.println(user);
         userService.DeleteUser(userid);
+    }
+
+    public void test(){
+
     }
 
 }

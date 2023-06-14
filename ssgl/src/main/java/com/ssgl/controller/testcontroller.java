@@ -14,19 +14,20 @@ public class testcontroller{
     private competitionMapper competitionMapper;
 
     //查询全部比赛
-    @GetMapping("/")
-    public  List<competition> index(){
+    @RequestMapping("")
+    public  List<competition>   index(){
+        System.out.println("sss");
         List<competition> all=competitionMapper.findAll();
         return all;
     }
     //删除比赛
-    @DeleteMapping("/Del/{competitionid}")
+    @RequestMapping("/Del/{competitionid}")
     public void del(@PathVariable Integer competitionid){
         competitionMapper.DelCompetition(competitionid);
         competitionMapper.UpdateCompetitionId(competitionid);
     }
     //创办比赛
-    @PostMapping("/Add")
+    @RequestMapping("/Add")
     public void addcompetition(@RequestBody competition competition){
         competitionMapper.Addcompetition(competition);
 

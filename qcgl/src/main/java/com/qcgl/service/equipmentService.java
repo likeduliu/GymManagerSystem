@@ -18,15 +18,20 @@ public interface equipmentService {
     //查全部器材
     @Select("SELECT * from equipment")
     List<equipment> findAll();
-    //查全部器材收费标准
-    @Select("SELECT * from equipment")
-    List<equipment> QueryRate();
-    //查全部租用的器材
-    @Select("SELECT * from equipmentbook")
-    List<equipmentbook> QueryBook();
-    //查询全部返还的器材
-    @Select("SELECT * from equipmentrecover")
-    List<equipmentrecover> QueryRecover();
+    //查器材收费标准
+    @Select("SELECT * from equipment where equipmentid=#{equipmentid}")
+    List<equipment> QueryRate(Integer equipmentid);
+    //查租用的器材
+    @Select("SELECT * from equipmentbook where UserID=#{userID}")
+    List<equipmentbook> QueryBook(String userID);
+
+    //查询全部租用的器材
+    @Select("SELECT * from equipmentbook ")
+    List<equipmentbook> QueryRecover();
+    //已归还器材删除租用记录
+    @Delete("Delete from equipmentbook where bookid=#{bookid} ")
+     void Delbook();
+
     //查询全部维修的器材
     @Select("Select * from equipmentrepair")
     List<equipmentrepair> QueryRepair();
@@ -39,7 +44,7 @@ public interface equipmentService {
       @Insert("INSERT INTO `equipment` (`equipmentname`, `amount`,`rate`,`state`) VALUES (#{equipmentname}, #{amount},#{rate}, #{state});")
       void Addequipment();
      //租用器材
-      @Insert("INSERT INTO `equipmentbook` (`equipmentid`, `bookusername`,`bookamount`,`bookstarttime`,`bookendtime`) VALUES (#{equipmentid}, #{bookusername},#{bookamount}, #{bookstarttime},#{bookendtime});")
+      @Insert("INSERT INTO `equipmentbook` (`equipmentid`, `bookusername`,`bookamount`,`bookstarttime`,`bookendtime`,`UserID`) VALUES (#{equipmentid}, #{bookusername},#{bookamount}, #{bookstarttime},#{bookendtime},#{UserID});")
       void Bookequipment();
       //返还器材
       @Insert("INSERT INTO `equipmentrecover` (`equipmentid`, `recoverusername`,`recoveramount`) VALUES (#{equipmentid}, #{recoverusername},#{recoveramount});")

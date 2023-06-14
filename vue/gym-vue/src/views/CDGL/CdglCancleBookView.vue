@@ -9,6 +9,8 @@
                         </el-table-column>
                         <el-table-column prop="fieldid" label="场地编号" width="140">                       
                         </el-table-column>
+                        <el-table-column prop="username" label="预约者姓名" width="140">                       
+                        </el-table-column>
                         <el-table-column label="预约日期" width="120" >
                             <template slot-scope="scope1">
                                             <div>{{ scope1.row.reservation_date | formatDate }}</div>
@@ -57,6 +59,10 @@
             axios.post("http://localhost:8082/field/CancleBook/"+reservation_id)
             .then(response => {
                     this.update()
+                    this.$message({
+                                  message: '取消预约成功',
+                                  type: 'success'
+                                });
                 })
                 .catch(error => {
                 console.error(error);

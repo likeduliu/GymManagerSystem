@@ -27,9 +27,10 @@
     <!--    主体-->
     <div style="display: flex">
       <!--      侧边导航栏-->
-      <SideNav />
+      <SideNav/>
       <!--      主体-->
       <router-view style="flex: 1"/>
+    
     </div>
   </div>
 </template>
@@ -40,7 +41,6 @@ import HeadNav from "@/components/HeadNav.vue";
 import SideNav from "@/components/SideNav.vue";
 import Vue from "vue";
 
-// let name=data.getString("userid")
 
 export default {
   el: "#nav",
@@ -52,18 +52,19 @@ export default {
     return {
       user_name: "", // 初始化为空字符串
     };
-  },methods:{
+  },
+  methods:{
     Quit(){
       localStorage.clear();
       this.user_name="";
-      this.$router.push("/")
-    }
+      this.$router.push("/login")
+      window.location.reload();
+      
+    },
   },
   updated() {
     const userData = localStorage.getItem('loginuser');
     const parsedData = JSON.parse(userData);
-    // console.log(parsedData)
-    // console.log(parsedData.name)
     this.user_name = parsedData.name; // 从本地存储中获取用户名并设置给 user_name
   },
 }

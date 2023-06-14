@@ -72,6 +72,7 @@ public class TestController {
         return fieldservice.unbook1();
 //        List<reservations> coasts1=fieldMapper.unbook1();
 //        return coasts1;
+
     }
 
 
@@ -106,8 +107,8 @@ public class TestController {
 //        fieldNoticeMapper.addFieldNotice(fieldnotice);
     }
     //删除场地
-        @DeleteMapping("/Del/{fieldid}")
-        public void del(@PathVariable Integer fieldid){
+    @DeleteMapping("/Del/{fieldid}")
+    public void del(@PathVariable Integer fieldid){
             fieldservice.DelField(fieldid);
             fieldservice.UpdateFieldId(fieldid);
             fieldservice.canlbookbydel(fieldid);
@@ -115,6 +116,19 @@ public class TestController {
 //            fieldMapper.DelField(fieldid);
 //            fieldMapper.UpdateFieldId(fieldid);
     }
+    @RequestMapping("/reservationExits/{fieldid}")
+    public boolean reservationExits(@PathVariable Integer fieldid){
+        List<reservations> reavExits=fieldservice.unbook2(fieldid);
+        boolean isreavExits=reavExits.isEmpty();
+        if(isreavExits==true){
+            System.out.println(true);
+            return true;
+        }else {
+            System.out.println(false);
+            return false;
+        }
+    }
+
     //添加场地
     @PostMapping("/Add")
     public void addfield(@RequestBody field field){
@@ -126,39 +140,54 @@ public class TestController {
     }
     //预约场地
     @PostMapping("/Book")
-    public boolean bookfield(@RequestBody reservations reservation){
+    public String bookfield(@RequestBody reservations reservation){
+//        判断时间冲突
         List<reservations> TimeCheck= fieldservice.FieldBookCheckTime(reservation);
         List<reservations> DateCheck=fieldservice.FieldBookCheckDate(reservation);
         List<reservations> FieldEmpty =fieldservice.unbook2(reservation.getFieldid());
+//        判读数量
+        Integer bookNum=fieldservice.bookNum(reservation);
+
+        List<reservations> FieldExist=fieldservice.FieldExist(reservation);
+
         boolean isTimeEmpty=TimeCheck.isEmpty();
         boolean isDateEmpty=DateCheck.isEmpty();
         boolean isFieldEmpty=FieldEmpty.isEmpty();
+        boolean isExist=FieldExist.isEmpty();
+        System.out.println(reservation);
+
 //        System.out.println(isDateEmpty);
 //        System.out.println(isTimeEmpty);
 //        System.out.println(TimeCheck);
 //        System.out.println(isFieldEmpty);
-        if(isFieldEmpty==true){
+        if (isExist==true){
+
+            return "notExist";
+        }
+        else if (bookNum>=5){
+            return "overbook";
+        } else if(bookNum<5&&isFieldEmpty==true){
             fieldservice.BookField1(reservation);
-            System.out.println(true);
-            return true;
-        }else if (isFieldEmpty==false&&isDateEmpty==true){
+            System.out.println("true1");
+            return "true";
+        }else if (bookNum<5&&isFieldEmpty==false&&isDateEmpty==true){
             fieldservice.BookField1(reservation);
 
             System.out.println(reservation.getHour());
-            System.out.println(true);
-            return true;
-        }else if(isFieldEmpty==false&&isTimeEmpty==true&&isDateEmpty==false)
+            System.out.println("true2");
+            return "true";
+        }else if(bookNum<5&&isFieldEmpty==false&&isTimeEmpty==true&&isDateEmpty==false)
         {
             fieldservice.BookField1(reservation);
-            System.out.println(true);
-            return true;
+            System.out.println("true3");
+            return "true";
         }else if(isFieldEmpty==false&&isDateEmpty==false&&isTimeEmpty==false) {
-            System.out.println(false);
-            return false;
+            System.out.println("false1");
+            return "false";
         }else{
             System.out.println(isFieldEmpty);
-            System.out.println(false);
-            return false;
+            System.out.println("false2");
+            return "false";
         }
 
     }

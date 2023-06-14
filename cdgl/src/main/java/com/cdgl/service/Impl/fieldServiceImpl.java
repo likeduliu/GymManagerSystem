@@ -111,7 +111,15 @@ public class fieldServiceImpl implements fieldService {
     public void canlbookbydel(Integer fieldid){
         fieldmapper.canlbookbydel(fieldid);
     }
+    @Override
+    public int bookNum(reservations reservations){
+        return fieldmapper.bookNum(reservations);
+    }
 
+    @Override
+    public List<reservations> FieldExist(reservations reservations){
+        return fieldmapper.FieldExist(reservations);
+    }
 //
 
 }

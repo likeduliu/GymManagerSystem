@@ -3,14 +3,14 @@
         <el-container>
             <el-main>
                     <el-form ref="bookform" :model="bookform" label-width="110px" size="mini">
-                        <el-form-item label="预约者姓名" prop="bookusername">
+                        <el-form-item label="预约者姓名" prop="UserID" hidden>
                             <el-col :span="4">
-                            <el-input v-model="bookform.bookusername" ></el-input>
+                            <el-input v-model="bookform.UserID" ></el-input>
                             </el-col>
                         </el-form-item>
                         <el-form-item label="预约日期" prop="reservation_date" >
                             <el-col :span="5">
-                            <el-date-picker type="date" placeholder="选择日期" v-model="bookform.reservation_date" ></el-date-picker>
+                            <el-date-picker type="date" placeholder="选择日期" v-model="bookform.reservation_date" :picker-options="datepickerOption"></el-date-picker>
                             </el-col>
                         </el-form-item>
 
@@ -46,6 +46,8 @@
                                <el-table :data="reservations">
                                 <el-table-column label="预定编号" prop="reservation_id" width="100">
                                 </el-table-column>
+                                <el-table-column label="预约人" prop="username" width="100">
+                                </el-table-column>
                                 <el-table-column  label="预约日期" width="100">
                                     <template slot-scope="scope1">
                                             <div>{{ scope1.row.reservation_date | formatDate }}</div>
@@ -66,8 +68,8 @@
                         </el-table-column>
                         <el-table-column prop="rate" label="收费标准 ：元/小时" width="150">
                         </el-table-column>
-                        <el-table-column  prop="book" label="已预约时间段" >
-                            <template slot-scope="scope">{{scope.row.book == 1 ? "已预约" : "可预约"}}</template>
+                        <el-table-column  prop="location" label="场地位置" >
+                            
                         </el-table-column>
                         
                     </el-table>
@@ -90,13 +92,14 @@
           reservation_date:'',
           starttime:'',
           endtime:'',
-          bookusername:'',
           fieldid:'',
           fieldName:'',
           kind:'',
           rate:'',
           book:'',
           hour:'',
+          username:'',
+          
         },
         fields: [],
         reservations:[],
@@ -106,6 +109,13 @@
         step: '01:00', // 时间间隔为1小时
         end: '21:00' // 可选的结束时间
        },
+       datepickerOption:{
+        disabledDate(date) {
+          const today = new Date();
+          today.setHours(0, 0, 0, 0); // 将时间设为今天的凌晨
+          return date < today; // 返回true表示禁用该日期
+        },
+       },
        timeFormat: 'HH:00' // 时间格式为小时:00
         
       };
@@ -113,19 +123,33 @@
     methods: {
         //提交表单
         onSubmit(){
+                //const userid=localStorage.getItem('userid')
+                
                 const starttime=moment(this.bookform.starttime,"HH:mm");
                 const endtime=moment(this.bookform.endtime,"HH:mm");
 
                 const hourDiff = endtime.diff(starttime, "hours");
                 //console.log(hourDiff);
                 this.bookform.hour=hourDiff
+                this.bookform.username=localStorage.getItem('loginname')
+                // console.log(this.username)
+                console.log(localStorage.getItem('loginname'))
                 axios.post("http://localhost:8082/field/Book",this.bookform)
                 .then(response => { //更新数据
 
                     this.updated()
                     console.log(response.data)
-                    if (response.data===false) {
+                    if(response.data==="notExist"){
+                        alert("很抱歉，您预约的场地不存在")
+                    }
+                    else if(response.data==="overbook"){
+                        alert("很抱歉，您对多只能预约5个场地")
+                    }
+                    else if (response.data===false) {
                         alert("很抱歉，您选择的时间和别人冲突了")
+                    }else 
+                    {
+                        alert("恭喜您预约成功！")
                     }
                 })
                 .catch(error => {

@@ -3,6 +3,16 @@
         
         <el-container>
             <el-main>
+                 <el-form :inline="true" model="book" class="demo-form-inline">
+                 <el-form-item label="器材编号">
+                            <el-input  v-model="book.equipmentid" placeholder="器材编号"></el-input>      
+                            </el-form-item>
+                             <el-form-item>
+                            <el-button type="primary" @click="onSubmit">查询</el-button>
+                            </el-form-item>
+               
+                 </el-form>
+                 
                 <el-table :data="equipments" >
                      <el-table-column prop="equipmentid" label="器材编号" width="140">                       
                     </el-table-column>
@@ -29,17 +39,33 @@
         
         data() {
             return {
-                equipments: []
-                    
+                equipments: [],
+                    book:{
+                      equipmentid: '',
+                } 
             }
         },
-        created() {
-            var that = this
-            axios.get("http://localhost:8080/equipment/").then(function (resp) {
-                    that.equipments = resp.data
-                }
-            )
-        }
+        methods:{
+            
+         onSubmit(){
+            // var that=this
+            var equipmentid=this.book.equipmentid
+            console.log(equipmentid)
+            axios.get("http://localhost:8080/equipment/QueryRate/"+equipmentid )
+                .then(response => { //更新数据
+                   this.equipments = response.data;
+                               
+
+                  
+                })
+                .catch(error => {
+          
+                console.error(error);
+                });  
+         },
+       
+        },
+        
     }
 </script>
 

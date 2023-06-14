@@ -32,7 +32,7 @@
     </insert>
 <!--    添加预约信息-->
     <insert id="BookField1" parameterType="com.cdgl.pojo.reservations">
-        INSERT INTO `reservations` (`fieldid`,`reservation_date`,`starttime`,`endtime`,`hour`) VALUES (#{fieldid},#{reservation_date},#{starttime},#{endtime},#{hour});
+        INSERT INTO `reservations` (`fieldid`,`reservation_date`,`starttime`,`endtime`,`hour`,`username`) VALUES (#{fieldid},#{reservation_date},#{starttime},#{endtime},#{hour},#{username});
     </insert>
 <!--    预约场地-->
 
@@ -44,7 +44,9 @@
         OR (starttime = #{starttime} AND endtime &lt; #{endtime})
         OR (starttime = #{starttime} AND endtime &gt; #{endtime})
         OR (endtime = #{endtime} AND starttime &gt; #{starttime})
-        OR (endtime = #{endtime} AND starttime &gt; #{starttime}));
+        OR (endtime = #{endtime} AND starttime &gt; #{starttime})
+        OR (endtime = #{endtime} AND starttime = #{starttime}))
+        AND fieldid=#{fieldid} AND reservation_date=#{reservation_date};
     </select>
 <!--    日期检查-->
     <select id="FieldBookCheckDate" parameterType="com.cdgl.pojo.reservations" resultType="com.cdgl.pojo.reservations">
@@ -58,7 +60,14 @@
     <delete id="canlbookbydel" parameterType="Integer">
         DELETE  from reservations where fieldid=#{fieldid}
     </delete>
-
+<!--数量检测-->
+    <select id="bookNum" parameterType="com.cdgl.pojo.reservations" resultType="integer">
+        SELECT COUNT(*) FROM reservations WHERE username = #{username};
+    </select>
+<!--    存在检查-->
+    <select id="FieldExist" parameterType="com.cdgl.pojo.reservations" resultType="com.cdgl.pojo.reservations">
+        SELECT * FROM field WHERE fieldid=#{fieldid};
+    </select>
 
 
 </mapper>
